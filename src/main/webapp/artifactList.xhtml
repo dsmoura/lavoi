@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1"
+						rendered="#{ artifactList.size() > 0 }" >
+		
+		<h:outputLabel value="General Artifacts:"
+								rendered="#{ artifactType == 'GENERAL' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="Functional Requirement Artifacts:"
+								rendered="#{ artifactType == 'FUNCTIONAL_REQ' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="Non Functional Requirement Artifacts:"
+								rendered="#{ artifactType == 'NON_FUNCTIONAL_REQ' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="Source Code Artifacts:"
+								rendered="#{ artifactType == 'SOURCE_CODE' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="User Interface Artifacts:"
+								rendered="#{ artifactType == 'USER_INTERFACE' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="Use Case Artifacts:"
+								rendered="#{ artifactType == 'USE_CASE' }"
+								styleClass="boldFont" />
+		<h:outputLabel value="WSDL Artifacts:"
+								rendered="#{ artifactType == 'WSDL' }"
+								styleClass="boldFont" />
+		
+		<rich:dataTable value="#{ artifactList }"
+							var="artifact"
+							styleClass="datatablelargeMore"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow" >
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="ID" />
+				</f:facet>
+				<h:outputText value="#{ artifact.id }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Name" />
+				</f:facet>
+				<h:outputText value="#{ artifact.name }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Reference (URI)" />
+				</f:facet>
+				
+				<h:outputText value="#{ artifact.reference } - #{ artifact.size }KB"
+									rendered="#{ artifact.file != null }" />
+				
+				<h:panelGroup rendered="#{ artifact.file == null }">
+					<h:panelGroup rendered="#{ assetMB.showReference }" >
+						<h:outputLink value="#{ artifact.reference }"
+											rendered="#{ artifact.validURI }"
+											target="_blank"
+											style="font-weight:normal; font-size:1em;" >
+							<h:outputText value="#{ artifact.reference }"/>
+						</h:outputLink>
+						<h:outputText value="#{ artifact.reference }"
+										rendered="#{ ! artifact.validURI }" />
+					</h:panelGroup>
+					
+					<h:panelGroup rendered="#{ ! assetMB.showReference }" >
+						<h:outputText value="(The reference will be shown when reuse the asset.)"
+										styleClass="helpFont" />
+					</h:panelGroup>
+				</h:panelGroup>
+				
+			</h:column>
+			
+			<h:column rendered="#{ assetMB.isForUseSoftwareLicense }" >
+				<f:facet name="header">
+					<h:outputLabel value="Software License" />
+				</f:facet>
+				<h:outputText value="#{ artifact.softwareLicenseDTO }" />
+			</h:column>
+			
+			<h:column rendered="#{ artifactType == 'SOURCE_CODE' }" >
+				<f:facet name="header">
+					<h:outputLabel value="Source Code Type" />
+				</f:facet>
+				<h:outputText value="#{ artifact.sourceCodeTypeDTO }" />
+			</h:column>
+			
+			<h:column rendered="#{ artifactType == 'USER_INTERFACE' }" >
+					<f:facet name="header">
+					<h:outputLabel value="User Interface Type" />
+				</f:facet>
+				<h:outputText value="#{ artifact.userInterfaceTypeDTO }" />
+			</h:column>
+			
+			<h:column rendered="#{ artifactType == 'NON_FUNCTIONAL_REQ' }" >
+				<f:facet name="header">
+					<h:outputLabel value="Non Functional Req Type" />
+				</f:facet>
+				<h:outputText value="#{ artifact.nonFunctionalRequirementTypeDTO }" />
+			</h:column>
+			
+			<h:column rendered="#{ artifactType == 'FUNCTIONAL_REQ' }" >
+				<f:facet name="header">
+					<h:outputLabel value="Functional Req Type" />
+				</f:facet>
+				<h:outputText value="#{ artifact.functionalRequirementTypeDTO }" />
+			</h:column>
+	
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Dependencies:" />
+				</f:facet>
+				<h:outputText value="(none)"
+									rendered="#{ artifact.artifactDependencyDTOs.size() == 0 }" />
+				<h:dataTable value="#{ artifact.artifactDependencyDTOs }"
+									var="artifactDependencyDTO"
+									rendered="#{ artifact.artifactDependencyDTOs.size() > 0 }"
+									styleClass="datatable"
+					    			headerClass="datatableHeader"
+					    			rowClasses="datatableEvenRow,datatableOddRow" >
+				 
+					<h:column>
+			  			<f:facet name="header">
+							<h:outputText value="Dependency Artifact ID" />
+						</f:facet>
+						<h:outputText value="#{ artifactDependencyDTO.artifactID }" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Dependency Type" />
+						</f:facet>
+						<h:outputText value="#{ artifactDependencyDTO.artifactDependencyTypeDTO }" />
+					</h:column>
+					
+	  			</h:dataTable>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Description" />
+				</f:facet>
+				<h:outputText id="descriptionID" value="#{ artifact.description }" />
+			</h:column>
+			
+			<h:column rendered="#{showDownload}">
+				<f:facet name="header">
+					<h:outputLabel value="Download" />
+				</f:facet>
+				<h:commandLink action="#{ artifactMB.downloadArtifact }"
+										rendered="#{ artifact.file != null }" >
+					<h:graphicImage value="/images/download.png"
+											title="download" />
+					<f:param name="artifactRandomID"
+									value="#{ artifact.randomID }" />
+				</h:commandLink>
+				
+				<h:outputLink value="#{ artifact.reference }"
+									rendered="#{ artifact.file == null and artifact.validURI }"
+									target="_blank"
+									style="font-weight:normal; font-size:1em;" >
+					<h:graphicImage value="/images/download.png"
+											title="download" />
+				</h:outputLink>
+			</h:column>
+			
+		</rich:dataTable>
+	</h:panelGrid>
+	
+</html>

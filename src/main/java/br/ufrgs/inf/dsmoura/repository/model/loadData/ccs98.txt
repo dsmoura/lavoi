@@ -1,0 +1,54 @@
+x       Administrative Data Processing
+        Business
+        Education
+        Financial
+        Government
+        Law
+        Manufacturing
+        Marketing
+        Military
+
+x       Physical Sciences and Engineering
+        Aerospace
+        Archaeology
+        Astronomy
+        Chemistry
+        Earth and atmospheric sciences
+        Electronics
+        Engineering
+        Mathematics and statistics
+        Physics
+
+x       Life and Medical Sciences
+        Biology and genetics
+        Health
+        Medical information systems
+
+x       Social and Behavioral Sciences
+        Economics
+        Psychology
+        Sociology
+
+x       Arts and Humanities
+        Architecture
+        Fine arts
+        Language translation
+        Linguistics
+        Literature
+        Performing arts (e.g., dance, music)
+
+x       Computer-Aided Engineering
+        Computer-aided design (CAD)
+        Computer-aided manufacturing (CAM)
+
+x       Computers in Other Systems
+        Command and control
+        Consumer products
+        Industrial control
+        Military
+        Process control
+        Publishing
+        Real time
+
+x       Other
+        Other

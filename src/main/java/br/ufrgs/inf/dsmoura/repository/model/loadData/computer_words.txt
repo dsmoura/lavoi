@@ -1,0 +1,463 @@
+add-on manager
+Amazon Appstore
+Android app
+Android live wallpaper
+Android Market
+app store
+Apple App Store
+operating system
+application software
+application portfolio
+application virtualization
+assembly
+Association of Shareware Professionals
+Audacity
+auto correct fail
+ISP
+Autocorrect Follies
+backport
+bells and whistles
+beta test
+BiggerTwitter
+billing software
+Blackbird
+network
+bloatware
+bug
+cloud computing accounting software
+cloud portability
+composite applications
+contact manager
+router
+creeping featurism
+Critical Path Method
+cross-site request forgery
+Cryptography API: Next Generation
+deploy
+document
+EDA
+virus
+EDM
+EPUB
+ESB
+Executive Support System
+expert system
+Facebook App
+Facebook Chat
+network
+feature creep
+financial software
+Firesheep
+floating
+freemium
+geotagging
+Google Play
+virus
+Google Profile
+HAL
+horizontal application
+httperf
+IBM Cast Iron
+IBM Cloud
+IBM ILOG
+ISP
+iBooks
+iBooks Author
+iBooks Textbooks
+iBookstore
+ICAP
+iCloud
+in-app billing
+in-app purchase
+in-memory analytics
+Indigo
+integrated development environment
+iPad app
+iPhone App
+iTunes U
+motherboard
+iWarp
+J#
+Knol
+language pack
+legacy
+legacy application
+LibreOffice
+virus
+Lunascape
+Mac App Store
+Meebo
+Mercury LoadRunner
+Microsoft Excel
+Microsoft Office
+multi-user interface
+computer
+nagware
+nesting
+On-Screen Keyboard
+ooVoo
+OpenDocument Format
+Parental Controls
+router
+PMML
+PocketTweets
+predictive analytics
+project portfolio management
+quit
+Real-Time Optimization
+reflection
+computer
+Say Where
+Server Appliance Kit
+shareware
+Shazam
+shell enhancement
+single-user interface
+small business CRM
+network
+smart client
+Snipping Tool
+Stanza
+tax software
+toolbar
+Twittermaps
+UAT
+motherboard
+Ubiquity
+Ubuntu TV
+user session
+vertical application
+virtualization
+VMware ESX
+VSIP
+virus
+VSwitch
+widget
+Windows Meeting Space
+Windows ReadyBoost
+Windows SideShow
+Xlet
+ACD
+active archiving
+ADO
+aggregate function
+Apache CouchDB
+attribute
+audit trail
+BLOB
+router
+built-in function
+business process
+character treatment
+Codd'?s Rules
+comma-delimited
+connection pool
+CRUD
+router
+CSV
+DAM
+DAO
+data cleansing
+data dictionary
+data entry
+data independence
+ISP
+data mart
+data migration
+data mining
+data modeling
+data scrubbing
+data warehouse
+database
+router
+database engine
+database management system
+database server
+database shard
+database software
+DB2
+DBA
+application
+DBA dashboard
+dBASE
+DDL
+dirty data
+distributed database
+DML
+domain
+router
+drill down
+drill through
+DSN
+DTS
+dynamic URL
+dynaset
+EDGAR
+application
+Enterprise JavaBeans
+entity-relationship diagram
+ETL
+failover
+field
+File Scripting Object
+Firebird
+server
+fixed length
+flat file
+flat-file database
+fourth-generation language
+FSO
+GUID
+HRIS
+HyperCard
+iHTML
+index
+Informix
+Ingres
+ISAM
+J2EE
+application
+JDBC
+Jet
+join
+key
+keyword
+knowledge base
+linked list
+ISP
+mail merge
+MaxDB
+merge
+Microsoft Access
+multidimensional DBMS
+MX record
+MySQL
+motherboard
+nested trigger
+normalization
+nullable
+ODBC
+ODS
+OLAP
+OLE DB
+router
+Oracle
+ORM
+PL/SQL
+PostgreSQL
+query string
+quiesce
+RAIDb
+computer
+raw data
+RDBMS
+record
+referential integrity
+relational database
+replication
+report
+computer
+report writer
+repository
+resource locking
+RPG
+SAP DB
+schema
+SQL
+motherboard
+SQL injection
+SQL Server
+stored procedure
+System R
+T-SQL
+table
+TOAD
+virus
+trigger
+tuple
+two-phase commit
+UDA
+VSAM
+WDDX
+A+
+AcceleratedSAP
+accelerator board
+Adobe Certified Associate (ACA)
+Adobe Certified Expert (ACE)
+AIDC
+Alan Turing
+analog-to-digital converter
+server
+application virtualization
+architecture
+AT command set
+backward chaining
+bioinformatics
+Boolean logic
+bot
+motherboard
+Btu
+C++ Software Engineer
+capacitor
+CCNA
+clean computing
+Client Support Manager
+application
+CMC
+cobot
+code
+The CompTia Security+ certification
+computer literacy
+computer ontology
+computer science
+server
+computer system
+computeracy
+coupling
+data logging
+debugger
+decoupled
+dedicated
+hardware
+dendrimer
+desktop virtualization
+deterministic system
+dielectric
+digital
+digital divide
+diode
+computer
+dynamic
+e-learning
+end user
+ENIAC
+ergonomics
+ESD
+ESD wrist strap
+computer
+expert system
+flip-flop
+foobar
+forward chaining
+fully virtual
+gesture recognition
+GPR
+server
+half life
+hard error
+humanware
+Hz
+inductor
+ISP
+infrared
+interoperability
+IT
+motherboard
+iWarp
+Joint Application Development
+language
+legacy
+lithography
+logical
+loose coupling
+application
+LPAR
+macromolecule
+MCSE
+memristance
+memristor
+MEMS
+meta
+motherboard
+microarchitecture
+microsensor
+MOEMS
+monomer
+MST
+ISP
+multi-port memories
+network support engineer
+network virtualization
+NLP
+nondeterministic system
+Nortel Networks Corporation
+offline
+computer
+online
+open learning
+operating system virtualization
+operating system-level virtualization
+Oracle OCP DBA
+overflow error
+paperless office
+server
+paravirtual
+paravirtualized operating system
+Personnel Security Specialist
+pervasive computing
+PEX
+physical
+polymer
+application
+process automation
+project administrator
+project analyst
+project control officer
+Project Coordinator
+project director
+project manager
+router
+proprietary
+prototype
+quantum computing
+ransomware
+rectifier
+resistor
+application
+RPL
+rule-based system
+sampling
+sampling rate
+SBIR
+scalable
+semantics
+virus
+server virtualization
+skunkworks
+smart grid
+SoC
+soft error
+stack
+state
+virus
+stateful
+stateless
+stream computing
+STTR
+Symantec Certifications
+system
+server
+technology
+tight coupling
+TPS
+transparent
+troubleshoot
+TTS
+turing
+hardware
+Ubuntu Certified Professional
+underflow
+unified
+virtual
+virtual keyboard
+virtual machine server
+virtualization
+motherboard
+VLSI
+VMM
+voice response system
+Von Neumann machine
+waveguide
+wireless network engineer
+zone
+application

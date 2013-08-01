@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.publishLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Publish the asset in repository"
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<h:panelGroup rendered="#{ assetMB.asset.assetPk != null and not assetMB.isManagerUser }" >
+		<h:outputLabel value="Asset Adjustment Description:" styleClass="boldFont" />
+		<h:panelGrid columns="2">
+			<h:inputTextarea id="assetAdjustmentDescriptionID"
+									value="#{ assetMB.adjustmentDescriptionAux }"
+									rows="3"
+									cols="80" >
+				<f:validateLength maximum="200" />
+			</h:inputTextarea>
+			<h:message for="assetAdjustmentDescriptionID"  styleClass="errorTextClass" />
+		</h:panelGrid>
+	</h:panelGroup>
+		
+	<p/>
+
+	<br/>
+	
+	<h:panelGrid columns="2"
+						rendered="#{ assetMB.canSave and not assetMB.isManagerUser }"
+						cellpadding="10px" >
+						
+		<h:commandButton action="#{ assetMB.saveInReadyForReuseState }"
+								value="Publish and Send for Certification"
+								styleClass="largeButton" />
+		<h:outputLabel value="The asset will be published in repository with the state 'Ready for Reuse' and will be able for Certification."
+								styleClass="helpFont" />
+		
+		<h:commandButton action="#{ assetMB.save }"
+								value="Just Save and Stay In Definition"
+								rendered="#{ assetMB.isInDefinitionAsset }"
+								styleClass="largeButton" />
+		<h:outputLabel value="The asset will stay in the state 'In Definition'. It is not 'Ready for Reuse' and not for Certification yet."
+								rendered="#{ assetMB.isInDefinitionAsset }"
+								styleClass="helpFont" />
+		
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2"
+						rendered="#{ assetMB.canSave and assetMB.isManagerUser }"
+						cellpadding="10px" >
+		<h:commandButton action="#{ assetMB.save }"
+								value="Save in Same State (Option for Manager)"
+								styleClass="largeButton" />
+		<h:outputLabel value="This option is for manager users."
+								rendered="#{ assetMB.isInDefinitionAsset }"
+								styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2"
+						rendered="#{ ! assetMB.canSave }">
+		<h:graphicImage value="/images/warning.png"
+													title="warning" />
+		<h:outputText value="You have to add one artifact at least to publish this asset."
+							styleClass="boldSemiLargeFont" />
+	</h:panelGrid>
+	
+	
+	<p/>
+	<br/>
+	<br/>
+	
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:debug hotkey="0" />
+<!-- Component tree and EL variables -->
+
+
+<f:view>
+<h:form prependId="false">
+
+<head>
+	<link rel="shortcut icon" href="./templates/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<title><ui:insert name="title"/> - Lavoi</title>
+</head>
+
+<body id="myBody">
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+			<center style="position:fixed;top:30px;right:10px;font-size:1.5em;color:red;" >
+				<h:inputHidden id="message_field" />
+				<h:message for="message_field"
+	    						styleClass="errorTextClass" />
+	    		 <a4j:status id="commonstatus"
+	    		 					startText="Wait..." />
+			</center>
+		</ui:insert>
+	</div>
+	
+	<div id="content">
+		<ui:insert name="content">
+   		Insert here the content area!
+		</ui:insert>
+		<p/>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+    		<h:messages globalOnly="true"
+    							showDetail="true"
+    							showSummary="false" />
+		</ui:insert>
+	</div>
+	<br/>
+	
+	<h:commandButton value="Send Feedback"
+							rendered="#{ loginMB.isUserLogged }"
+							onclick="Richfaces.showModalPanel('feedbackModalPanel', {width:'550px', height:'250px'}); document.getElementById('messageFeedbackID').focus(); return false;"
+							immediate="true"
+							image="/images/send_feedback.png"
+							styleClass="feedbackUsButton"
+							title="Send a message with suggestions, opinions, problems or issues about the repository" />
+	
+	<h:outputLink value="#{ listMB.homePageURL }"
+						target="_blank"
+						styleClass="homePageLink" >
+		<h:outputText value="#{ listMB.homePageURL }"/>
+	</h:outputLink>
+	
+	<rich:modalPanel id="userLoginPanel">
+		<f:facet name="header">
+			<h:outputText value="Login is needed" />
+		</f:facet>
+		<center>
+			<br/>
+			<h:commandLink value="Login"
+									action="login"
+									immediate="true"
+									styleClass="boldLargeFont" />
+			<p/>
+			<br/>
+			<br/>
+			<h:commandButton value="Close"
+									onclick="Richfaces.hideModalPanel('userLoginPanel'); return false;"
+									title="Tip: Press Esc to close."/>
+		</center>
+	</rich:modalPanel>
+							
+</body>
+
+</h:form>
+
+<script>
+	function openUserLoginPanel() {
+		if (#{ loginMB.loggedUserDTO == null}) {
+			Richfaces.showModalPanel('userLoginPanel', {width:'250px', height:'160px'});
+			return false;
+		}
+		return true;		
+	}
+</script>
+
+<ui:include src="./feedbackModalPanel.xhtml" />
+
+</f:view>
+
+</html>

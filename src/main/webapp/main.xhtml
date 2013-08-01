@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<!-- http://www.welie.com/patterns/showPattern.php?patternID=wizard -->
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Main</ui:define>
+
+<ui:define name="content">
+
+	<h:panelGrid columns="2">
+		<h:graphicImage value="/images/lavoi.png" />
+		<h:panelGrid columns="1">
+			<h:outputLabel value="Software Reuse Repository" styleClass="pageTitle" />
+			<h:outputLabel value="#{ listMB.repositorySubtitle }" styleClass="pageSubSubtitle" />
+		</h:panelGrid>
+	</h:panelGrid>
+	
+	<p/>
+	
+	<div style="float:left; width:55%;">
+		<h:panelGrid columns="2"
+							styleClass="mainLink"
+							cellpadding="8ex" >
+			<h:panelGrid columns="1">
+				<h:commandLink action="#{ simpleSearchMB.newSearch }" immediate="true" >
+					<h:graphicImage value="/images/search.png" title="search assets" />
+					<h:outputText value="Search Assets" />
+			 	</h:commandLink>
+			 	<h:outputLabel value="Search any data in the repository."
+											styleClass="helpFont" />
+			</h:panelGrid>
+		 	
+			<h:panelGrid columns="1">
+				<h:commandLink action="#{ assetMB.newAsset }"
+										immediate="true"
+										onclick="return openUserLoginPanel();" >
+					 <h:graphicImage value="/images/add.png" title="add asset" />
+					 <h:outputText value="Publish Asset" />
+				</h:commandLink>
+				<h:outputLabel value="Publish reusable assets in repository."
+												styleClass="helpFont" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" >
+				<h:commandLink action="#{ simpleSearchMB.searchConsumedAssetByMeList }"
+									 	immediate="true"
+									 	onclick="return openUserLoginPanel();" >
+				 	<h:graphicImage value="/images/folder.png" title="assets consumed by me" />
+					<h:outputText value="My Consumed Assets" />
+					<f:attribute name="onclick" value="return openUserLoginPanel();" />
+				</h:commandLink>
+				<h:outputLabel value="List your consumed (reused) assets."
+													styleClass="helpFont" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" >
+				<h:commandLink action="#{ simpleSearchMB.searchPublishedAssetByMeList }"
+									 	immediate="true"
+									 	onclick="return openUserLoginPanel();" >
+				 	<h:graphicImage value="/images/folder.png" title="assets published by me" />
+					<h:outputText value="My Published Assets" />
+				</h:commandLink>
+				<h:outputLabel value="List your published assets."
+													styleClass="helpFont" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1">
+				<h:commandLink action="#{ feedbackMB.openListAssetsToFeedback }"
+									 	immediate="true"
+									 	onclick="return openUserLoginPanel();" >
+				 	<h:graphicImage value="/images/feedback.png" title="feedback on assets" />
+					<h:outputText value="Evaluate My Consumed Assets" style="font-size: 0.8em;" />
+				</h:commandLink>
+				<h:outputLabel value="Evaluate your consumed assets."
+													styleClass="helpFont" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" rendered="#{ assetMB.isCertifierUser }" >
+				<h:commandLink action="#{ simpleSearchMB.searchAssetsForCertificationList }"
+									 	immediate="true"
+									 	onclick="return openUserLoginPanel();" >
+				 	<h:graphicImage value="/images/ok.png" title="assets available for certification" />
+					<h:outputText value="Assets Available for Certification" />
+				</h:commandLink>
+				<h:outputLabel value="List the assets that are ready for avaliation for its certification."
+								styleClass="helpFont" />
+			</h:panelGrid>
+			
+			<h:outputText value="Repository Status: #{ searchMB.publishedAssetsNumber } published assets."
+						styleClass="minorBoldFont" />
+			
+		</h:panelGrid>
+		
+	</div>
+	
+	<div style="margin-left:55%;">
+		<h:panelGrid columns="2"
+							columnClasses="alignTopColumn,alignTopColumn"
+							cellpadding="3ex"
+							width="430px" >
+			<h:panelGroup>
+				<h:graphicImage value="/images/add.png"
+										width="15px"
+										height="15px"  />
+				<h:outputLabel value="Last Published" styleClass="pageSubSubtitle" />
+				
+				<h:panelGroup rendered="#{ searchMB.lastPublishedAssetsList.size() == 0 }">
+					<br/>
+					<h:outputLabel value="There aren't published assets yet." />
+				</h:panelGroup>
+				
+				<a4j:repeat value="#{ searchMB.lastPublishedAssetsList }"
+									var="assetSolrDTO"
+									min-width="200px"
+									max-width="200px"
+									rowKeyVar="rowKey" >
+					<br/>
+					<h:commandLink value="#{ assetSolrDTO.strDate } - #{ assetSolrDTO.nameNorm }"
+											action="#{ assetMB.openAsset }"
+											title="#{ assetSolrDTO.strDate } - #{ assetSolrDTO.name }"
+											immediate="true"
+											style="text-decoration:none;"
+											styleClass="minorBoldFont" >
+						<f:param name="assetPkToOpen"
+										value="#{ assetSolrDTO.assetPk }" />
+					</h:commandLink>
+				</a4j:repeat>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:graphicImage value="/images/reuse.png"
+										width="15px"
+										height="15px"  />
+				<h:outputLabel value="Top Reused" styleClass="pageSubSubtitle" />
+				
+				<h:panelGroup rendered="#{ searchMB.mostReusedAssetsList.size() == 0 }">
+					<br/>
+					<h:outputLabel value="There aren't reused assets yet." />
+				</h:panelGroup>
+				
+				<a4j:repeat value="#{ searchMB.mostReusedAssetsList }"
+									var="assetSolrDTO"
+									min-width="200px"
+									max-width="200px"
+									rowKeyVar="rowKey" >
+					<br/>
+					<h:commandLink value="#{ assetSolrDTO.reuseCounter }x - #{ assetSolrDTO.nameNorm }"
+											action="#{ assetMB.openAsset }"
+											title="#{ assetSolrDTO.reuseCounter }x - #{ assetSolrDTO.name }"
+											immediate="true"
+											style="text-decoration:none;"
+											styleClass="minorBoldFont" >
+						<f:param name="assetPkToOpen"
+										value="#{ assetSolrDTO.assetPk }" />
+					</h:commandLink>
+				</a4j:repeat>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:graphicImage value="/images/full_star.png"
+										width="15px"
+										height="15px"  />
+				<h:outputLabel value="Top Rated" styleClass="pageSubSubtitle" />
+				<h:panelGroup rendered="#{ searchMB.bestScoredAssetsList.size() == 0 }">
+					<br/>
+					<h:outputLabel value="There aren't rated assets yet." />
+				</h:panelGroup>
+				<a4j:repeat value="#{ searchMB.bestScoredAssetsList }"
+									var="assetSolrDTO"
+									min-width="200px"
+									max-width="200px"
+									rowKeyVar="rowKey" >
+					<br/>
+					<h:commandLink value="#{ assetSolrDTO.averageScoreNorm }% - #{ assetSolrDTO.nameNorm }"
+											action="#{ assetMB.openAsset }"
+											title="#{ assetSolrDTO.averageScoreNorm }% - #{ assetSolrDTO.name }"
+											immediate="true"
+											style="text-decoration:none;"
+											styleClass="minorBoldFont" >
+						<f:param name="assetPkToOpen"
+										value="#{ assetSolrDTO.assetPk }" />
+					</h:commandLink>
+				</a4j:repeat>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:graphicImage value="/images/ok.png"
+										width="15px"
+										height="15px"  />
+				<h:outputLabel value="Last Certified" styleClass="pageSubSubtitle" />
+				
+				<h:panelGroup rendered="#{ searchMB.lastCertifiedAssetsList.size() == 0 }">
+					<br/>
+					<h:outputLabel value="There aren't certified assets yet." />
+				</h:panelGroup>
+				
+				<a4j:repeat value="#{ searchMB.lastCertifiedAssetsList }"
+									var="assetSolrDTO"
+									min-width="200px"
+									max-width="200px"
+									rowKeyVar="rowKey" >
+					<br/>
+					<h:commandLink value="#{ assetSolrDTO.strCertificationDate } - #{ assetSolrDTO.nameNorm }"
+											action="#{ assetMB.openAsset }"
+											title="#{ assetSolrDTO.strCertificationDate } - #{ assetSolrDTO.name }"
+											immediate="true"
+											style="text-decoration:none;"
+											styleClass="minorBoldFont" >
+						<f:param name="assetPkToOpen"
+										value="#{ assetSolrDTO.assetPk }" />
+					</h:commandLink>
+				</a4j:repeat>
+			</h:panelGroup>
+			
+		</h:panelGrid>
+		
+	</div>
+	
+	<div style="clear:both;" />
+
+	<hr/>
+	
+	<h:commandLink action="#{ tagsMB.openTags }"
+						 	immediate="true"
+						 	styleClass="boldLargeLink" >
+	 	<h:graphicImage value="/images/tag.png" title="tags" />
+		<h:outputText value="Assets Tag Cloud" />
+	</h:commandLink>
+	
+	<h:panelGroup styleClass="tagcloud" >
+		<p align="center" style="max-width: 1000px;" >
+			<a4j:repeat value="#{ tagsMB.tags }" var="tag" >
+				<h:commandLink value="#{ tag.name }"
+										action="#{ simpleSearchMB.searchByTag }"
+										style="font-size:#{ 80 + tag.totalProportion }%"
+										title="#{ tag.count } asset(s)" >
+					<f:param name="tagValueParam" value="#{ tag.name }" />
+					<f:param name="tagTypeToSearchParam" value="tag" />
+				</h:commandLink>
+				<h:outputLabel value=" " style="font-size:200%" />
+			</a4j:repeat>
+			<h:outputLabel value="There are no tags yet." rendered="#{ tagsMB.tags.size() == 0 }" />
+		</p>
+	</h:panelGroup>
+	
+	<script>
+		document.getElementById('termToSearchMenuID').focus();
+	</script>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

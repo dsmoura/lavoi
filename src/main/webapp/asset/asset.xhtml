@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.generalLabel }"
+								styleClass="pageSubtitle" />
+		<h:outputLabel value="Basic information of the asset"
+									styleClass="helpFont" />
+		<h:outputLabel value="All fields have mandatory filling"
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+
+	<h:panelGrid columns="2"
+						columnClasses="rightColumn,none" >
+		
+		<h:outputLabel value="* Name:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<h:inputText id="assetNameID"
+								value="#{ assetMB.asset.name }"
+								required="true"
+								requiredMessage="Enter the Asset's Name."
+								size="80"
+								autocomplete="off" >
+				<f:converter converterId="StringTrimConverter" />
+			</h:inputText>
+			<h:message for="assetNameID"
+							styleClass="errorTextClass" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="* ID:" styleClass="fieldFont" />
+		<h:panelGrid columns="4" rendered="#{ assetMB.asset.assetPk == null }" >
+			<h:inputText id="assetIDInputTextID"
+								value="#{ assetMB.asset.id }"
+								required="#{ ! assetMB.isForGenerateID }"
+								requiredMessage="Enter the Asset's ID."
+								size="60"
+								disabled="#{ assetMB.isForGenerateID }" >
+				<f:converter converterId="StringTrimConverter" />
+				<a4j:support event="onblur"
+									action="#{ assetMB.loadAnotherVersions }"
+									reRender="versionPanelID"
+									ajaxSingle="true" />
+			</h:inputText>
+			<h:selectBooleanCheckbox id="generateAssetID"
+												value="#{ assetMB.isForGenerateID }" >
+				<a4j:support event="onclick"
+									reRender="assetIDInputTextID"
+									ajaxSingle="true" />
+			</h:selectBooleanCheckbox>
+			<h:outputLabel value="Generate ID" for="generateAssetID" />
+			<a4j:commandButton value="Generate ID"
+										action="#{ assetMB.getRandomID }"
+										ajaxSingle="true"
+										title="Generate a random ID"
+										reRender="assetIDInputTextID,versionPanelID"
+										rendered="false" />
+			<h:message for="assetIDInputTextID"
+							styleClass="errorTextClass" />
+		</h:panelGrid>
+		<h:panelGrid columns="2" rendered="#{ assetMB.asset.assetPk != null }" >
+			<h:outputText value="#{ assetMB.asset.id }" styleClass="boldFont" />
+			<h:outputLabel value="The ID identifies the asset"
+									styleClass="helpFont" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="* Version:" styleClass="fieldFont" />
+		<h:panelGrid id="versionPanelID" columns="3" >
+			<h:inputText id="assetVersionID"
+								value="#{ assetMB.asset.version }"
+								size="20"
+								required="true"
+								requiredMessage="Enter the Asset's Version." >
+				<f:converter converterId="StringTrimConverter" />
+			</h:inputText>
+			<h:message for="assetVersionID"
+							styleClass="errorTextClass" />
+			
+			<h:panelGrid columns="2" rendered="#{ assetMB.hasID }" >
+				<h:outputLabel value="Another published versions with this ID:" />
+				 <rich:dataList var="assetSolrDTO"
+				 						value="#{ assetMB.anotherVersions }"
+				 						rendered="#{ assetMB.hasAnotherVersions }" >
+				 	<h:outputLabel value="#{ assetSolrDTO.version } on #{ assetSolrDTO.strDate } - #{ assetSolrDTO.nameNorm }" />
+				 </rich:dataList>
+				 <h:outputLabel rendered="#{ ! assetMB.hasAnotherVersions }" value="None." />
+			</h:panelGrid>
+		</h:panelGrid>
+		
+		<h:outputLabel value="* Type:" styleClass="fieldFont" />
+		<h:panelGrid columns="3">
+			<h:selectOneMenu id="assetTypeID"
+									value="#{ assetMB.asset.type }"
+									required="true"
+									requiredMessage="Enter the Asset's Type." >
+				<f:selectItems value="#{ listMB.assetTypeList }" />
+				<f:converter converterId="JavaBeanConverter" />
+				<a4j:support event="onchange"
+									reRender="assetTypeMessageID,assetOtherTypePanelID"
+									ajaxSingle="true" />
+			</h:selectOneMenu>
+			<h:message id="assetTypeMessageID"
+							for="assetTypeID"
+							styleClass="errorTextClass" />
+			
+			<h:panelGrid id="assetOtherTypePanelID"
+								columns="3" >
+				<h:outputLabel value="* Other Type:"
+										rendered="#{ assetMB.isOtherType }"
+										styleClass="fieldFont" />
+				<h:inputText id="assetOtherTypeID"
+									value="#{ assetMB.asset.otherType }"
+									rendered="#{ assetMB.isOtherType }"
+									required="true"
+									requiredMessage="Enter the Asset's Type."
+									size="40" >
+					<f:converter converterId="StringTrimConverter" />
+				</h:inputText>
+				<h:message for="assetOtherTypeID"
+								styleClass="errorTextClass"
+								rendered="#{ assetMB.isOtherType }" />
+			</h:panelGrid>
+		</h:panelGrid>
+		
+		<h:panelGroup rendered="#{ assetMB.isForUseSoftwareLicense }">
+		
+			<h:outputLabel value="* Software License:" styleClass="fieldFont" />
+			<h:panelGrid columns="3" >
+				<h:selectOneMenu id="softwareLicenseID"
+										value="#{ assetMB.asset.softwareLicenseDTO }"
+										required="true"
+										requiredMessage="Enter the Software License." >
+					<f:selectItems value="#{ listMB.softwareLicenseDTOList }" />
+					<f:converter converterId="JavaBeanConverter" />
+					<a4j:support event="onchange"
+										reRender="assetOtherSoftwareLicensePanelID,GNUCompatibleLabelPanel,GNUCompatibleOutputPanel"
+										ajaxSingle="true" />
+				</h:selectOneMenu>
+				<h:message for="softwareLicenseID"
+								styleClass="errorTextClass" />
+				
+				<h:panelGrid id="assetOtherSoftwareLicensePanelID"
+									columns="3" >
+					<h:outputLabel value="* Other Software License:"
+											rendered="#{ assetMB.isOtherSoftwareLicense }"
+											styleClass="fieldFont" />
+					<h:inputText id="assetOtherSoftwareLicenseID"
+										value="#{ assetMB.asset.otherSoftwareLicense }"
+										rendered="#{ assetMB.isOtherSoftwareLicense }"
+										required="true"
+										requiredMessage="Enter the Software License."
+										size="40" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:message for="assetOtherSoftwareLicenseID"
+									styleClass="errorTextClass"
+									rendered="#{ assetMB.isOtherSoftwareLicense }" />
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<h:panelGroup id="GNUCompatibleLabelPanel" >
+				<h:outputLabel value=" " rendered="#{ assetMB.asset.softwareLicenseDTO != null }" />
+			</h:panelGroup>
+			<h:panelGroup id="GNUCompatibleOutputPanel" >
+				<h:outputText value="The license is GNU-Compatible."
+										rendered="#{ assetMB.GPLSoftwareLicenseCompatible }"
+										styleClass="greenTextClass" />
+				<h:outputText value="Warning: The license is not GNU-Compatible."
+										rendered="#{ assetMB.GPLSoftwareLicenseNotCompatible }"
+										styleClass="errorTextClass" />
+			</h:panelGroup>
+			
+			<h:outputLabel value=" " />
+			<h:panelGroup>
+				<h:outputText value="* It's recommended the "
+									styleClass="helpFont" />
+				<h:outputLink value="http://www.gnu.org/licenses/quick-guide-gplv3.html"
+									target="_blank" >
+					<h:outputText value="GNU GPLv3"/>
+				</h:outputLink>
+				<h:outputText value=" license, otherwise "
+									styleClass="helpFont" />
+				<h:outputLink value="http://www.gnu.org/copyleft/copyleft.html"
+									target="_blank" >
+					<h:outputText value="Copyleft Licenses"/>
+				</h:outputLink>
+				<h:outputText value=" and "
+									styleClass="helpFont" />
+				<h:outputLink value="http://www.gnu.org/licenses/license-list.html"
+									target="_blank" >
+					<h:outputText value="GPL-Compatible Free Software Licenses"/>
+				</h:outputLink>
+				<h:outputText value=". " />
+			</h:panelGroup>
+			
+		</h:panelGroup>
+		
+		<h:outputLabel value="* Creator's Usernames:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<h:inputText id="creatorNameID"
+									value="#{ assetMB.asset.usage.creatorUsername }"
+									size="80"
+									required="true"
+									requiredMessage="Enter the Asset Creator's Usernames." >
+				<f:converter converterId="StringTrimConverter" />
+			</h:inputText>
+			<h:message for="creatorNameID" styleClass="errorTextClass" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="* Creation Date:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<rich:calendar id="creationDateID"
+									value="#{ assetMB.creationDateTime }"
+									required="true"
+									requiredMessage="Enter the creation date."
+	                        popup="true"
+	                        datePattern="dd/MM/yy"
+	                        showApplyButton="true"
+	                        cellWidth="24px"
+	                        cellHeight="22px"
+	                        style="width:200px" >
+				<f:validator validatorId="NotAfterTodayValidator" />
+			</rich:calendar>
+			<h:message id="creationDateMessageID"
+								for="creationDateID"
+								styleClass="errorTextClass" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="* Publishing Date:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<h:outputText value="#{ assetMB.asset.strDate }" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="* Access Rights:" styleClass="fieldFont" rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" />
+		<h:outputText value="All consumers from all projects and all organizations can consume (default)" rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" />
+		<h:panelGrid columns="3" rendered="false" >
+			<h:panelGrid styleClass="noSpacesSolidLineClass" >
+				<h:selectOneRadio id="accessRigthsID"
+											value="#{ assetMB.asset.accessRights }"
+											layout="pageDirection"
+											required="true"
+											requiredMessage="Enter the Asset's Access Rights" >
+					<f:selectItem itemLabel="All consumers from all projects and all organizations can consume (default)" itemValue="#{ assetMB.allAccessRigths }" />
+					<f:selectItem itemLabel="Only consumers from projects and organizations related with this asset can consume" itemValue="#{ assetMB.orgProjOnlyAccessRigths }" />
+					<f:selectItem itemLabel="Only consumers from projects related with this asset can consume" itemValue="#{ assetMB.projectsOnlyAccessRigths }" />
+				</h:selectOneRadio>
+			</h:panelGrid>
+			<a4j:commandButton value="Default Access Rigths"
+										action="#{ assetMB.getDefaultAccessRigths }"
+										ajaxSingle="true"
+										reRender="accessRigthsID" />
+			<h:message for="accessRigthsID"
+							styleClass="errorTextClass" />
+		</h:panelGrid>	
+		
+		<h:outputLabel value="* Short Description:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<h:inputText id="assetShortDescriptionID"
+									value="#{ assetMB.asset.shortDescription }"
+									size="80"
+									required="true"
+									requiredMessage="Enter the Asset's Short Description." >
+				<f:converter converterId="StringTrimConverter" />
+			</h:inputText>
+			<h:message for="assetShortDescriptionID" styleClass="errorTextClass" />
+		</h:panelGrid>
+							
+		<h:outputLabel value="* Description:" styleClass="fieldFont" />
+		<h:panelGrid columns="2">
+			<h:inputTextarea id="assetDescriptionID"
+									value="#{ assetMB.asset.description }"
+									rows="5"
+									cols="80"
+									required="true"
+									requiredMessage="Enter the Asset's Description." >
+				<f:converter converterId="StringTrimConverter" />
+				<f:validateLength maximum="16384" />
+			</h:inputTextarea>
+			<h:message for="assetDescriptionID"  styleClass="errorTextClass" />
+		</h:panelGrid>
+	</h:panelGrid>
+	
+	<script>
+		document.getElementById('assetNameID').focus();
+	</script>
+	
+</html>

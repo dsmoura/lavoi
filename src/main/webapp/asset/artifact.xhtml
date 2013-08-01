@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGroup id="#{ artifactMB.artifactMBID }">
+
+		<h:panelGrid columns="2" >
+			<h:outputLabel value="#{ artifactMB.artifactTypeName }s:" styleClass="fieldFont" />
+			<a4j:commandButton value="Add..."
+										action="#{ artifactMB.addArtifact }"
+										rendered="#{ artifactMB.artifacts.size() == 0 }"
+										reRender="#{ artifactMB.artifactMBID }" >
+			</a4j:commandButton>
+		</h:panelGrid>
+		
+		<h:message for="#{ artifactMB.artifactMBID }"
+  						styleClass="errorTextClass" />
+		
+		<h:dataTable value="#{ artifactMB.artifacts }"
+							var="artifact"
+							rendered="#{ artifactMB.artifacts.size() > 0 }"
+							styleClass="datatable"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRowLeft,datatableEvenRowLeft"
+			    			columnClasses="none,alignTopColumn" >
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{ artifactMB.artifactTypeName }" />
+				</f:facet>
+				<h:panelGrid columns="2"
+									columnClasses="rightColumn,none" >
+					<h:outputLabel value="Artifact ID:"
+											styleClass="fieldFont" />
+					<h:outputText value="#{ artifact.id }"
+											styleClass="fieldFont" />
+				
+					<h:outputLabel value="* Name:" styleClass="boldFont" />
+					<h:inputText value="#{ artifact.name }"
+										size="70"
+										maxlength="256"
+										rendered="#{ artifact.file == null }" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:inputText value="#{ artifact.name }"
+										size="70"
+										maxlength="256"
+										rendered="#{ artifact.file != null }" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					
+					<h:outputLabel value="* Reference(URI):" styleClass="boldFont" />
+					<h:inputText value="#{ artifact.reference }"
+										size="70"
+										rendered="#{ artifact.file == null }" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:outputText value="#{ artifact.reference } - #{ artifact.size }KB"
+										rendered="#{ artifact.file != null }" />
+					
+					<h:outputLabel value="Software License:"
+									rendered="#{ assetMB.isForUseSoftwareLicense }" />
+					<h:selectOneMenu value="#{ artifact.softwareLicenseDTO }"
+										rendered="#{ assetMB.isForUseSoftwareLicense }" >
+						<f:selectItems value="#{ listMB.softwareLicenseDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="* User Interface Type*:"
+											rendered="#{ artifactMB.hasUserInterfaceArtifacts }"
+											styleClass="boldFont" />
+					<h:selectOneMenu value="#{ artifact.userInterfaceTypeDTO }"
+											rendered="#{ artifactMB.hasUserInterfaceArtifacts }" >
+						<f:selectItems value="#{ listMB.userInterfaceTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="* Source Code Type"
+											rendered="#{ artifactMB.hasSourceCodeArtifacts }"
+											styleClass="boldFont" />
+					<h:selectOneMenu value="#{ artifact.sourceCodeTypeDTO }"
+											rendered="#{ artifactMB.hasSourceCodeArtifacts }" >
+						<f:selectItems value="#{ listMB.sourceCodeTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="* Functional Requirement Type"
+											rendered="#{ artifactMB.hasFunctionalArtifacts }"
+											styleClass="boldFont" />
+					<h:selectOneMenu value="#{ artifact.functionalRequirementTypeDTO }"
+											rendered="#{ artifactMB.hasFunctionalArtifacts }" >
+						<f:selectItems value="#{ listMB.functionalRequirementTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="* Non Functional Requirement Type"
+											rendered="#{ artifactMB.hasNonFunctionalArtifacts }"
+											styleClass="boldFont" />
+					<h:selectOneMenu value="#{ artifact.nonFunctionalRequirementTypeDTO }"
+											rendered="#{ artifactMB.hasNonFunctionalArtifacts }" >
+						<f:selectItems value="#{ listMB.nonFunctionalRequirementTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Description:" />
+					<h:inputTextarea value="#{ artifact.description }"
+											cols="65"
+											rows="2"
+											style="overflow-y:scroll;" >
+						<f:converter converterId="StringTrimConverter" />
+						<f:validateLength maximum="16384" />
+					</h:inputTextarea>
+				</h:panelGrid>
+				
+				<center>
+					<h:panelGrid columns="2"
+										rendered="#{ artifact.artifactDependencyDTOs.size() > 0 }">
+						<h:outputLabel value="Artifact Dependencies:" />
+						<h:dataTable value="#{ artifact.artifactDependencyDTOs }"
+										var="artifactDependencyDTO"
+										styleClass="datatable"
+						    			headerClass="datatableHeader"
+						    			rowClasses="datatableEvenRow,datatableOddRow" >
+						 
+							<h:column>
+					  			<f:facet name="header">
+									<h:outputText value="Dependency Artifact ID - Name" />
+								</f:facet>
+								<h:selectOneMenu value="#{ artifactDependencyDTO.artifactID }" >
+									<f:selectItems value="#{ assetMB.artifactsIDList }" />
+									<a4j:support event="onchange"
+														action="#{ artifactMB.validateArtifactDependency }"
+														reRender="#{ artifactMB.artifactMBID }" />
+								</h:selectOneMenu>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputLabel value="Dependency Type" />
+								</f:facet>
+								<h:selectOneMenu value="#{ artifactDependencyDTO.artifactDependencyTypeDTO }" >
+									<f:selectItems value="#{ listMB.artifactDependencyTypeDTOList }" />
+									<f:converter converterId="JavaBeanConverter" />
+								</h:selectOneMenu>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Actions" />
+								</f:facet>
+								
+								<a4j:commandLink action="#{ artifactMB.addGeneralArtifactDependencyOrdered }"
+															reRender="#{ artifactMB.artifactMBID }" >
+									<h:graphicImage value="/images/add.png"
+															title="add operation"
+															width="15px"
+															height="15px" />
+									<a4j:actionparam name="artifactRandomID"
+															value="#{ artifact.randomID }" />
+									<a4j:actionparam name="artifactDependencyRandomID"
+															value="#{ artifactDependencyDTO.randomID }" />
+								</a4j:commandLink>
+								
+								<a4j:commandLink action="#{ artifactMB.removeGeneralArtifactDependency }"
+															reRender="#{ artifactMB.artifactMBID }"
+															onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+									<h:graphicImage value="/images/remove.png"
+															title="remove operation"
+															width="15px"
+															height="15px" />
+									<a4j:actionparam name="artifactRandomID"
+															value="#{ artifact.randomID }" />
+									<a4j:actionparam name="artifactDependencyRandomID"
+															value="#{ artifactDependencyDTO.randomID }" />
+								</a4j:commandLink>
+							</h:column>
+							    			
+			  			</h:dataTable>
+					</h:panelGrid>
+					
+				</center>
+				
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Actions" />
+				</f:facet>
+				<h:panelGrid columns="4">
+					<rich:fileUpload fileUploadListener="#{ artifactMB.uploadArtifact }"
+											addControlLabel="Upload..."
+											autoclear="true"
+											maxFilesQuantity="1"
+											immediateUpload="true"
+											listWidth="80"
+											listHeight="0"
+											onsizerejected="alert('File size must be less than 5MB.');"
+											disabled="#{ artifact.file != null }" >
+						<a4j:support event="onuploadcomplete" reRender="#{ artifactMB.artifactMBID }" />
+						<a4j:actionparam name="artifactRandomID"
+														value="#{ artifact.randomID }" />
+					</rich:fileUpload>
+					
+					<h:commandLink action="#{ artifactMB.downloadArtifact }"
+											rendered="#{ artifact.file != null }" >
+						<h:graphicImage value="/images/download.png"
+												title="download" />
+						<f:param name="artifactRandomID"
+										value="#{ artifact.randomID }" />
+					</h:commandLink>
+					
+					<a4j:commandLink action="#{ artifactMB.addArtifactOrdered }"
+												reRender="#{ artifactMB.artifactMBID }" >
+						<h:graphicImage value="/images/add.png"
+												title="add" />
+						<a4j:actionparam name="artifactRandomID"
+												value="#{ artifact.randomID }" />
+					</a4j:commandLink>
+					
+					<a4j:commandLink action="#{ artifactMB.removeArtifact }"
+												reRender="#{ artifactMB.artifactMBID }"
+												onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+						<h:graphicImage value="/images/remove.png"
+												title="remove" />
+						<a4j:actionparam name="artifactRandomID"
+												value="#{ artifact.randomID }" />
+					</a4j:commandLink>
+					
+					<a4j:commandLink action="#{ artifactMB.addArtifactDependency }"
+												rendered="#{ artifact.artifactDependencyDTOs.size() == 0 }"
+												title="add artifact dependency"
+												reRender="#{ artifactMB.artifactMBID }" >
+						<h:graphicImage value="/images/dependency.png"
+												title="add artifact dependency" />
+						<a4j:actionparam name="artifactRandomID"
+												value="#{ artifact.randomID }" />
+					</a4j:commandLink>
+				</h:panelGrid>
+			</h:column>
+			
+		</h:dataTable>
+		
+		<h:panelGroup rendered="#{ artifactMB.hasUserInterfaceArtifacts and artifactMB.artifacts.size() > 0 }">
+			<a onclick="Richfaces.showModalPanel('UIHelp#{artifactMB.artifactMBID}Panel', {width:'600px', height:'300px'}); return false;" href="#">* Help - User Interface Types</a>
+			<rich:modalPanel id="UIHelp#{artifactMB.artifactMBID}Panel">
+				<f:facet name="header">
+					<h:outputText value="Help - User Interface Types" />
+				</f:facet>
+				<ul>
+					<li><h:outputText value="Task and Concepts descreve as várias tarefas a serem executadas e os conceitos orientados ao domínio requeridos no desempenho destas tarefas." /></li>
+					<li><h:outputText value="Abstract UI (AUI) é considerada como uma abstração de uma CUI com respeito à modalidade. Uma AUI é uma expressão canônica da renderização dos conceitos de domínio e de tarefas de forma que seja independente dos objetos de interação disponíveis nos ambientes de interação." /></li>
+					<li><h:outputText value="Sketched UI (SUI) representa o esboço (desenho, screenshot) e a descrição textual da IU sendo modelada." /></li>
+					<li><h:outputText value="Concrete UI (CUI) é uma representação abstrata de uma FUI de  forma que seja  independente de qualquer  plataforma  computacional  ou  de  toolkit  de desenvolvimento." /></li>
+					<li><h:outputText value="Final UI (FUI) é uma IU operacional, ou seja,  qualquer  IU  executando  em  uma  plataforma  de computação específica. Os artefatos de uma FUI são os códigos-fonte ou os códigos-objeto que implementam a IU." /></li>
+					<li><h:outputText value="eXecutable UI (XUI) descreve um programa de computador executável em uma plataforma computacional que renderiza a IU." /></li>
+				</ul>
+				<center>
+					<h:commandButton value="Close"
+											onclick="Richfaces.hideModalPanel('UIHelp#{artifactMB.artifactMBID}Panel'); return false;" />
+				</center>
+			</rich:modalPanel>
+		</h:panelGroup>
+	</h:panelGroup>
+	
+</html>

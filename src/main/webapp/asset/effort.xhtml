@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.effortLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Costs and efforts of the asset development"
+									styleClass="helpFont" />
+		<h:outputLabel value="The information here has optional filling"
+									styleClass="helpFont" />
+	</h:panelGrid>
+								
+	<p/>
+
+	<h:panelGrid columns="3"
+						columnClasses="rightColumn,none,none" >
+		<h:outputLabel value="Estimated Development Time:" styleClass="fieldFont" />
+		<h:inputText id="estimatedTimeID"
+							value="#{ assetMB.effortMB.DTO.estimatedTime }"
+							size="15"
+							autocomplete="off" >
+			<f:convertNumber groupingUsed="false"
+									minIntegerDigits="0"
+									maxIntegerDigits="6"
+									minFractionDigits="0"
+									maxFractionDigits="2" />
+		</h:inputText>
+		<h:outputText value="hours" />
+		
+		<h:outputLabel value="Real Development Time:" styleClass="fieldFont" />
+		<h:inputText id="realTimeID"
+							value="#{ assetMB.effortMB.DTO.realTime }"
+							size="15"
+							autocomplete="off" >
+			<f:convertNumber minIntegerDigits="0"
+									maxIntegerDigits="6"
+									minFractionDigits="0"
+									maxFractionDigits="2" />
+		</h:inputText>
+		<h:outputText value="hours" />
+						
+		<h:outputLabel value="Monetary Cost:" styleClass="fieldFont" rendered="false" />
+		<h:inputText id="monetaryID"
+							value="#{ assetMB.effortMB.DTO.monetary }"
+							size="15"
+							autocomplete="off"
+							rendered="false" >
+			<f:convertNumber minIntegerDigits="0"
+									maxIntegerDigits="6"
+									minFractionDigits="0"
+									maxFractionDigits="2" />
+		</h:inputText>
+		<h:outputText value="#{ assetMB.effortMB.currencyCode }" rendered="false" />
+		
+		<h:outputLabel value="Team Members:" styleClass="fieldFont" />
+		<h:inputText id="teamMembersID"
+							value="#{ assetMB.effortMB.DTO.teamMembers }"
+							size="15"
+							autocomplete="off" />
+		<h:outputText value="people" />
+		
+		<h:outputLabel value="Lines of Code (LOC):" styleClass="fieldFont" />
+		<h:inputText id="linesOfCodeID"
+							value="#{ assetMB.effortMB.DTO.linesOfCode }"
+							size="15"
+							autocomplete="off" />
+		<h:outputText value="lines" />
+	</h:panelGrid>
+	
+</html>

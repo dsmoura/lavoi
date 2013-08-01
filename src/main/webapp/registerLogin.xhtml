@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+
+<ui:define name="header" />
+
+<ui:define name="title">Register Login</ui:define>
+
+<ui:define name="content">
+
+	<center>
+	
+		<p/>
+		<br/>
+		<h:panelGrid columns="1" columnClasses="centerColumn,centerColumn" >
+			<h:outputLabel value="Software Reuse Repository" styleClass="pageTitle" />
+			<h:outputLabel value="#{ listMB.repositorySubtitle }" styleClass="pageSubSubtitle" />
+		</h:panelGrid>
+		<p/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+		
+		<br/>
+		<br/>
+	
+		<p/>
+		<h:outputLabel value="Register Login" styleClass="pageTitle" />
+		<p/>
+		<br/>
+		<br/>
+	
+		<h:panelGrid columns="2"
+							columnClasses="rightColumn,none" >
+			
+			<h:outputLabel value="* Full Name:" styleClass="boldFont" />
+			<h:panelGrid columns="1">
+				<h:inputText id="nameID"
+									value="#{ loginMB.userDTOForRegistration.name }"
+									required="true"
+									requiredMessage="Enter your Name."
+									size="60" >
+					<f:converter converterId="StringTrimConverter" />
+				</h:inputText>
+				<h:message for="nameID"
+								styleClass="errorTextClass" />
+			</h:panelGrid>
+			
+			<h:outputLabel value="* Email:" styleClass="boldFont" />
+			<h:panelGrid columns="1">
+				<h:inputText id="emailID"
+									value="#{ loginMB.userDTOForRegistration.email }"
+									required="true"
+									requiredMessage="Enter your Email."
+									size="60" >
+					<f:converter converterId="StringTrimConverter" />
+					<f:validator validatorId="EmailValidator" />
+					<a4j:support event="onblur"
+									action="#{loginMB.loadUsername}"
+									reRender="usernameValueID"
+									ajaxSingle="true" />
+				</h:inputText>
+				<h:outputText value="It's mandatory the domain #{ loginMB.emailDomainRestriction }"
+								rendered="#{ loginMB.emailDomainRestricted }"
+								styleClass="helpFont" />
+				<h:message for="emailID"
+								styleClass="errorTextClass" />
+			</h:panelGrid>
+			
+			<h:outputLabel value="* Username:" styleClass="boldFont" />
+			
+			<h:panelGrid columns="1"
+							id="usernameValueID"
+							rendered="#{ loginMB.emailDomainRestricted }" >
+				<h:inputText value="#{ loginMB.userDTOForRegistration.username }"
+								disabled="true" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1"
+							rendered="#{ ! loginMB.emailDomainRestricted }" >
+				<h:inputText value="#{ loginMB.userDTOForRegistration.username }"
+								required="true"
+								requiredMessage="Enter your Username."
+								size="60" >
+					<f:converter converterId="StringTrimConverter" />
+				</h:inputText>
+				<h:message for="usernameID"
+								styleClass="errorTextClass" />
+			</h:panelGrid>
+			
+			<h:outputLabel value="* Password:" styleClass="boldFont" />
+			<h:panelGrid columns="1">
+				<h:inputSecret id="passwordID"
+									value="#{ loginMB.userDTOForRegistration.password }"
+									required="true"
+									requiredMessage="Enter your Password."
+									size="40"
+									title="Your password will be secured, stored by SHA-1 Hash Algorithm." />
+				<h:message for="passwordID"
+								styleClass="errorTextClass" />
+			</h:panelGrid>
+			<h:outputLabel value="* Confirm Password:" styleClass="boldFont"/>
+			<h:panelGrid columns="1">
+				<h:inputSecret id="confirmPasswordID"
+									value="#{ loginMB.userDTOForRegistration.confirmPassword }"
+									required="true"
+									requiredMessage="Confirm your Password."
+									size="40"
+									title="Your password will be secured, stored by SHA-1 Hash Algorithm." />
+				<h:message for="confirmPasswordID"
+								styleClass="errorTextClass" />
+			</h:panelGrid>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2" cellpadding="25px" >
+			<h:commandButton value="Register"
+									action="#{ loginMB.registerLogin }"
+									styleClass="largeButton" >
+			</h:commandButton>
+			
+			<h:commandLink value="Back to Login"
+									action="login"
+									immediate="true"
+									styleClass="boldMiddleFont" />
+		</h:panelGrid>
+		
+		<p/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+		
+		<h:outputText value="Your IP is "/>
+		<a target="_blank" href="http://whatismyipaddress.com/ip/#{ loginMB.userIP }">
+			<h:outputText value="#{ loginMB.userIP }" />
+		</a>
+	
+	</center>
+	
+	<script>
+		document.getElementById('nameID').focus();
+	</script>
+	
+</ui:define>
+</ui:composition>
+</html>

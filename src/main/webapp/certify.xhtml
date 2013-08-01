@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Asset Certification</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Asset Certification"
+							styleClass="pageTitle" />
+	<p/>
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	<ui:include src="assetHeader.xhtml">
+		<ui:param name="asset" value="#{ assetMB.asset }" />
+	</ui:include>
+	
+	<p/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<h:panelGrid columns="2" styleClass="noSpacesClass" >
+		<h:commandLink action="#{ assetMB.downloadAsset }" >
+			<h:graphicImage value="/images/download.png"
+									title="download asset" />
+		</h:commandLink>
+		<h:commandButton action="#{ assetMB.downloadAsset }"
+							value="Download Asset"
+							styleClass="largeButton" />
+	</h:panelGrid>
+	
+	<p/>
+	<br/>
+	
+	<h:panelGroup rendered="#{ assetMB.canCertifyAsset }">
+	
+		<h:panelGrid columns="2"
+							styleClass="noSpacesClass" >
+			<h:commandLink action="#{ assetMB.certifyAsset }" >
+				<h:graphicImage value="/images/yes.png"
+										title="certify asset" />
+			</h:commandLink>
+			<h:commandButton action="#{ assetMB.certifyAsset }"
+									value="Certify Asset"
+									styleClass="largeButton" >
+			</h:commandButton>
+			
+			<h:commandLink action="#{ assetMB.rejectCertification }" >
+				<h:graphicImage value="/images/no.png"
+										title="reject certification" />
+			</h:commandLink>
+			<h:commandButton action="#{ assetMB.rejectCertification }"
+								value="Reject Certification"
+								styleClass="largeButton" >
+			</h:commandButton>
+			
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2" >
+			<h:selectBooleanCheckbox id="removeAssetFromRepositoryID"
+												value="#{ assetMB.removeAssetFromRepository }" />
+			<h:outputLabel for="removeAssetFromRepositoryID"
+									value="Reject and also remove the asset from the repository." />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1" >
+			<h:outputLabel value="Message for Asset Author:" styleClass="boldFont" />
+			<h:inputTextarea id="messageRejectionID"
+									value="#{ assetMB.rejectionMessageAux }"
+									rows="4"
+									cols="60" >
+				<f:validateLength maximum="5000" />
+			</h:inputTextarea>
+			<h:message for="messageRejectionID" styleClass="errorTextClass" />
+		</h:panelGrid>
+		
+	</h:panelGroup>
+	
+	<h:panelGrid rendered="#{ assetMB.isCertifiedAsset }" columns="2" >
+		<h:graphicImage value="/images/ok.png" title="certify asset" />
+		<h:outputText value="The asset certification was done. The asset is Certified."
+							styleClass="boldSemiLargeFont" />
+	</h:panelGrid>
+	
+	<h:panelGrid rendered="#{ assetMB.isInReviewAsset }" columns="2" >
+		<h:graphicImage value="/images/not.png" title="in review asset" />
+		<h:outputText value="The asset certification was rejected. The asset is In Review by author."
+							styleClass="boldSemiLargeFont" />
+	</h:panelGrid>
+	
+	<p/>
+	<br/>
+	<br/>
+	
+	<h:commandLink action="#{ feedbackMB.openAssetToFeedback }"
+							immediate="true"
+							rendered="#{ assetMB.hasFeedback }" >
+		<h:graphicImage value="/images/feedback.png" title="feedback and rate the quality" />
+		<h:outputText value="Feedback and Rate the Quality" styleClass="largeFont" />
+		<f:param name="assetPkToFeedback"
+							value="#{ assetMB.asset.assetPk }" />
+	</h:commandLink>
+	
+	<p/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<h:commandLink action="#{ simpleSearchMB.searchAssetsForCertificationList }"
+						 	immediate="true" >
+	 	<h:graphicImage value="/images/back.png" title="back to assets available for certification" />
+		<h:outputText value="Back to Assets Available for Certification"
+							styleClass="largeFont" />
+	</h:commandLink>
+	
+	<p/>
+	<br/>
+	<h:commandLink action="#{ mainMB.openMain }" immediate="true">
+		<h:graphicImage value="/images/home.png" title="go main page" />
+		<h:outputText value="Go Main Page" styleClass="largeFont" />
+	</h:commandLink>
+	
+	<p/>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

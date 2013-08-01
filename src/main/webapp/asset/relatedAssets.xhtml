@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.relatedAssetsLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Assets that are associated with this asset."
+									styleClass="helpFont" />
+		<h:outputLabel value="All fields have optional filling"
+									styleClass="helpFont" />	
+	</h:panelGrid>
+	
+	<p/>
+
+	<h:outputLabel value="Related Assets:" styleClass="fieldFont" />
+	<h:dataTable id="relatedAssetsTable"
+						value="#{ assetMB.relatedAssetsMB.DTO.relatedAssets }"
+						var="relatedAssetDTO"
+						styleClass="datatable"
+		    			headerClass="datatableHeader"
+		    			rowClasses="datatableOddRow,datatableEvenRow" >
+
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:outputText value="ID:" />
+					<h:inputText value="#{ assetMB.relatedAssetsMB.relatedAssetAux.id }"
+										size="12" />
+					<h:outputLabel value="#{ assetMB.relatedAssetsMB.relatedAssetIDMessage }"
+											styleClass="errorTextClass" />
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ relatedAssetDTO.id }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:outputText value="Name:" />
+					<h:inputText value="#{ assetMB.relatedAssetsMB.relatedAssetAux.name }"
+										size="25" />
+					<h:outputLabel value="#{ assetMB.relatedAssetsMB.relatedAssetNameMessage }"
+											styleClass="errorTextClass" />
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ relatedAssetDTO.name }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:outputText value="Version:" />
+					<h:inputText value="#{ assetMB.relatedAssetsMB.relatedAssetAux.version }"
+										size="12" />
+					<h:outputLabel value="#{ assetMB.relatedAssetsMB.relatedAssetVersionMessage }"
+											styleClass="errorTextClass" />
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ relatedAssetDTO.version }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:outputText value="Reference(URI):" />
+					<h:inputText value="#{ assetMB.relatedAssetsMB.relatedAssetAux.reference }"
+										size="22" />
+					<h:outputLabel value="#{ assetMB.relatedAssetsMB.relatedAssetReferenceMessage }"
+											styleClass="errorTextClass" />
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ relatedAssetDTO.reference }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:outputText value="Type:" />
+					<h:selectOneMenu value="#{ assetMB.relatedAssetsMB.relatedAssetAux.relatedAssetTypeDTO }" >
+						<f:selectItems value="#{ listMB.relatedAssetTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+					<h:outputLabel value="#{ assetMB.relatedAssetsMB.relatedAssetTypeMessage }"
+											styleClass="errorTextClass" />
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ relatedAssetDTO.relatedAssetTypeDTO.name }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<h:commandButton value="Add"
+											action="#{ assetMB.relatedAssetsMB.addRelatedAsset }" >
+				</h:commandButton>
+			</f:facet>
+			<a4j:commandButton value="Remove"
+										action="#{ assetMB.relatedAssetsMB.removeRelatedAsset }"
+										reRender="relatedAssetsTable"
+										onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+				<a4j:actionparam name="relatedAssetRandomIDToRemove"
+										value="#{ relatedAssetDTO.randomID }" />
+			</a4j:commandButton>
+		</h:column>
+
+	</h:dataTable>
+	
+	<p/>
+	
+	<h:commandButton value="Suggest Related Assets"
+							action="#{ assetMB.relatedAssetsMB.loadSuggestedAssets }">
+	</h:commandButton>
+	
+	<p/>
+	
+	<h:panelGroup rendered="#{ searchMB.suggestedAssetsList.size() == 0 }" >
+		<center>
+			<br/>
+			<br/>
+			<h:outputText value="There are no suggested assets. Click at the button to reload suggested assets." styleClass="boldMiddleFont" />
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+		</center>	
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ searchMB.suggestedAssetsList.size() > 0 }" >
+		<ui:include src="../resultAssets.xhtml" >
+			<ui:param name="searchManagedBean" value="#{ searchMB }"/>
+			<ui:param name="assetsList" value="#{ searchMB.suggestedAssetsList }"/>
+			<ui:param name="searchType" value="SUGGESTING"/>
+		</ui:include>
+	</h:panelGroup>
+	
+</html>

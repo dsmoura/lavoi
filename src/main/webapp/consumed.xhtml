@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<!-- http://www.welie.com/patterns/showPattern.php?patternID=wizard -->
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">#{ assetMB.isAuthor ? 'Asset Published By You' : 'Asset Consumed By You' }</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Asset Published By You"
+							rendered="#{ assetMB.isAuthor }"
+							styleClass="pageTitle" />
+	<h:outputLabel value="Asset Consumed By You"
+							rendered="#{ ! assetMB.isAuthor }"
+							styleClass="pageTitle" />
+	<p/>
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<ui:include src="assetHeader.xhtml">
+		<ui:param name="asset" value="#{ assetMB.asset }" />
+	</ui:include>
+	
+	<center>
+	
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		
+		<h:panelGroup rendered="#{ assetMB.hasFeedback }" >
+			<h:graphicImage value="/images/ok.png" />
+			<h:outputText value="The asset was marked as consumed by you. You are able to evaluate the quality in asset's reutilization."
+								styleClass="largeFont" />
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{ assetMB.isAuthor }" >
+			<h:outputText value="The asset is published by you. You are able to download."
+								styleClass="largeFont" />
+		</h:panelGroup>
+		
+		<p/>
+		<br/>
+		<br/>
+		
+		<h:commandLink action="#{ assetMB.downloadAsset }" >
+			<h:graphicImage value="/images/download.png"
+									title="download asset" />
+		</h:commandLink>
+		<h:commandButton action="#{ assetMB.downloadAsset }"
+							value="Download Asset"
+							styleClass="largerButton" />
+		
+		<p/>
+		<br/>
+		
+		<h:commandLink action="#{ feedbackMB.openAssetToFeedback }"
+								immediate="true"
+								rendered="#{ assetMB.hasFeedback }" >
+			<h:graphicImage value="/images/feedback.png" title="feedback and rate the quality" />
+			<h:outputText value="Evaluate the Asset's Quality" styleClass="largeFont" />
+			<f:param name="assetPkToFeedback"
+								value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+		
+		<p/>
+		<br/>
+		<br/>
+		
+		<h:commandLink action="#{ mainMB.openMain }" immediate="true">
+			<h:graphicImage value="/images/home.png" title="go main page" />
+			<h:outputText value="Go Main Page" styleClass="largeFont" />
+		</h:commandLink>
+		
+	</center>
+	
+	<p style="float:left;margin:0px;" >
+		<h:commandLink action="#{ assetMB.openAsset }"
+								immediate="true" >
+			<h:graphicImage value="/images/back.png" title="back" />
+			<h:outputText value="Back to Asset Summary" styleClass="largeFont" />
+			<f:param name="assetPkToOpen"
+						value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+	</p>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

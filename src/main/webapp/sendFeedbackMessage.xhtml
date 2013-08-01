@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Send Feedback</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Send Feedback"
+							styleClass="pageTitle" />
+	<p/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<center>
+		<h:panelGrid columns="1">
+			<h:outputLabel value="Feedback Message:" styleClass="largeFont" />
+			<h:inputTextarea id="messageFeedbackID"
+								value="#{ mainMB.feedbackMessage }"
+								rows="5"
+								cols="60"
+								required="true"
+								requiredMessage="Enter the message." >
+				<f:validateLength maximum="5000" />
+			</h:inputTextarea>
+			<h:message for="messageFeedbackID" styleClass="errorTextClass" />
+		</h:panelGrid>
+		<h:commandButton action="#{ mainMB.sendFeedbackMessage }"
+								value="Send Message"
+								styleClass="largeButton" >
+		</h:commandButton>
+	</center>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

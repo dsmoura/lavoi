@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.analysisLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Artifacts of the asset's analysis phase."
+									styleClass="helpFont" />
+		<h:outputLabel value="All fields have optional filling"
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+
+	<h:outputLabel value="Interface Specification:" styleClass="fieldFont" />
+	
+	<h:panelGroup id="interfaceSpecAnalysisTable">					
+		<a4j:commandButton value="Add..."
+									action="#{ assetMB.analysisMB.addNewInterfaceSpec }"
+									reRender="interfaceSpecAnalysisTable"
+									rendered="#{ assetMB.analysisMB.DTO.interfaceSpecDTOs.size() == 0 }" >
+		</a4j:commandButton>
+		
+		<h:dataTable value="#{ assetMB.analysisMB.DTO.interfaceSpecDTOs }"
+							var="interfaceSpecDTO"
+							styleClass="datatable"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRowLeft,datatableEvenRowLeft"
+			    			rendered="#{ assetMB.analysisMB.DTO.interfaceSpecDTOs.size() > 0 }" >
+	
+			<h:column>
+				<h:panelGrid columns="2">
+					<h:outputText value="* Name:" styleClass="boldFont" />
+					<h:inputText value="#{ interfaceSpecDTO.name }"
+										size="80" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:outputText value="Description:" />
+					<h:inputText value="#{ interfaceSpecDTO.description }"
+										size="80" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+				</h:panelGrid>
+				
+				<h:dataTable value="#{ interfaceSpecDTO.operationDTOs }"
+									var="operationDTO"
+									styleClass="datatable"
+					    			headerClass="datatableHeader"
+					    			rowClasses="datatableOddRow,datatableEvenRow" >
+					 
+					<h:column>
+			  			<f:facet name="header">
+							<h:outputText value="* Operation Name" />
+						</f:facet>
+						<h:inputText value="#{ operationDTO.name }"
+											size="40" >
+							<f:converter converterId="StringTrimConverter" />
+						</h:inputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Initiates Transaction" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{ operationDTO.initiatesTransaction }" />
+						<h:outputText value="Yes" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Description" />
+						</f:facet>
+						<h:inputText value="#{ operationDTO.description }"
+											size="40" >
+							<f:converter converterId="StringTrimConverter" />
+						</h:inputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Actions" />
+						</f:facet>
+						
+						<a4j:commandLink action="#{ assetMB.analysisMB.addOperation }"
+													reRender="interfaceSpecAnalysisTable" >
+							<h:graphicImage value="/images/add.png"
+													title="add operation"
+													width="15px"
+													height="15px" />
+							<a4j:actionparam name="interfaceSpecRandomIDToAdd"
+													value="#{ interfaceSpecDTO.randomID }" />
+							<a4j:actionparam name="operationRandomIDToAdd"
+													value="#{ operationDTO.randomID }" />
+						</a4j:commandLink>
+						
+						<h:outputText value=" " />
+	
+						<a4j:commandLink action="#{ assetMB.analysisMB.removeOperation }"
+													reRender="interfaceSpecAnalysisTable"
+													onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+							<h:graphicImage value="/images/remove.png"
+													title="remove operation"
+													width="15px"
+													height="15px" />
+							<a4j:actionparam name="interfaceSpecRandomIDToRemove"
+													value="#{ interfaceSpecDTO.randomID }" />
+							<a4j:actionparam name="operationRandomIDToRemove"
+													value="#{ operationDTO.randomID }" />
+						</a4j:commandLink>
+	
+					</h:column>
+					    			
+	  			</h:dataTable>
+	  			
+	  			<p/>
+				
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Actions" />
+				</f:facet>
+				
+				<a4j:commandLink action="#{ assetMB.analysisMB.addInterfaceSpec }"
+											reRender="interfaceSpecAnalysisTable" >
+					<h:graphicImage value="/images/add.png"
+											title="add interface spec" />
+					<a4j:actionparam name="interfaceSpecRandomIDToAdd"
+											value="#{ interfaceSpecDTO.randomID }" />
+				</a4j:commandLink>
+	
+				<a4j:commandLink action="#{ assetMB.analysisMB.removeInterfaceSpec }"
+											reRender="interfaceSpecAnalysisTable"
+											onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+					<h:graphicImage value="/images/remove.png"
+											title="remove interface spec" />
+					<a4j:actionparam name="interfaceSpecRandomIDToRemove"
+											value="#{ interfaceSpecDTO.randomID }" />
+				</a4j:commandLink>
+			</h:column>
+	
+		</h:dataTable>
+	</h:panelGroup>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.analysisMB.useCaseMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.analysisMB.userInterfaceMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.analysisMB.artifactMB }" />
+	</ui:include>
+	
+</html>

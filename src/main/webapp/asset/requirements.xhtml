@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.requirementsLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Specification of the asset functional and non-functional requirements and needs"
+									styleClass="helpFont" />
+		<h:outputLabel value="All fields have optional filling"
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.requirementsMB.useCaseMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.requirementsMB.userInterfaceMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.requirementsMB.functionalRequirementMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.requirementsMB.nonFunctionalRequirementMB }" />
+	</ui:include>
+	
+	<p/>
+	
+	<h:outputLabel value="Internationalization Languages:" styleClass="fieldFont" />
+	<h:outputLabel value="You can add multiple languages."
+							styleClass="helpFont" />
+	<h:dataTable id="internationalizationTable"
+						value="#{ assetMB.requirementsMB.DTO.internationalizationTypeDTOs }"
+						var="internationalizationTypeDTO"
+						styleClass="datatable"
+		    			headerClass="datatableHeader"
+		    			rowClasses="datatableOddRow,datatableEvenRow" >
+
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:selectOneMenu value="#{ assetMB.requirementsMB.internationalizationTypeDTOAux }" >
+						<f:selectItems value="#{ listMB.internationalizationTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ internationalizationTypeDTO.name }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<a4j:commandButton value="Add"
+											action="#{ assetMB.requirementsMB.addInternationalization }"
+											reRender="internationalizationTable" >
+				</a4j:commandButton>
+			</f:facet>
+			<a4j:commandButton value="Remove"
+										action="#{ assetMB.requirementsMB.removeInternationalization }"
+										reRender="internationalizationTable" >
+				<a4j:actionparam name="internationalizationTypePkToRemove"
+										value="#{ internationalizationTypeDTO.internationalizationtypePk }" />
+			</a4j:commandButton>
+		</h:column>
+
+	</h:dataTable>
+	
+	<p/>
+	
+	<h:outputLabel value="Operational Systems:" styleClass="fieldFont" />
+	<h:outputLabel value="You can add multiple operational systems."
+							styleClass="helpFont" />
+	<h:dataTable id="operationalSystemTable"
+						value="#{ assetMB.requirementsMB.DTO.operationalSystemTypeDTOs }"
+						var="operationalSystemTypeDTO"
+						styleClass="datatable"
+		    			headerClass="datatableHeader"
+		    			rowClasses="datatableOddRow,datatableEvenRow" >
+
+		<h:column>
+			<f:facet name="header">
+				<h:panelGrid columns="1">
+					<h:selectOneMenu value="#{ assetMB.requirementsMB.operationalSystemTypeDTOAux }" >
+						<f:selectItems value="#{ listMB.operationalSystemTypeDTOList }" />
+						<f:converter converterId="JavaBeanConverter" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</f:facet>
+			<h:outputText value="#{ operationalSystemTypeDTO.name }" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">
+				<a4j:commandButton value="Add"
+											action="#{ assetMB.requirementsMB.addOperationalSystem }"
+											reRender="operationalSystemTable" >
+				</a4j:commandButton>
+			</f:facet>
+			<a4j:commandButton value="Remove"
+										action="#{ assetMB.requirementsMB.removeOperationalSystem }"
+										reRender="operationalSystemTable" >
+				<a4j:actionparam name="operationalSystemTypePkToRemove"
+										value="#{ operationalSystemTypeDTO.operationalsystemtypePk }" />
+			</a4j:commandButton>
+		</h:column>
+
+	</h:dataTable>
+	
+</html>

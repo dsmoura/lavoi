@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Search Assets</ui:define>
+<ui:define name="content">
+
+	<p/>
+	<h:panelGrid columns="1">
+		<h:outputLabel value="Search Assets"
+								styleClass="pageTitle" />
+		<h:outputLabel value="Text-based search of any metadata of the published assets in the repository."
+								styleClass="helpFont" />
+	</h:panelGrid>
+	<p/>
+
+	<h:panelGrid columns="4">
+		<h:inputText id="termToSearchID"
+							value="#{ simpleSearchMB.termToSearch }"
+							size="60"
+							autocomplete="off"
+							onkeypress="if (event.keyCode == 13) { document.getElementById('searchButtonID').click(); return false; }" >
+		</h:inputText>
+		
+		<h:selectOneMenu value="#{ simpleSearchMB.searchOrder }" >
+			<f:selectItems value="#{ simpleSearchMB.searchOrderList }" />
+			<f:converter converterId="SearchOrderConverter"/>
+		</h:selectOneMenu>
+		
+		<h:commandButton id="searchButtonID"
+							value="Search"
+							action="#{ simpleSearchMB.simpleSearch }" />
+		
+		<h:commandLink value=" Advanced Search"
+						action="#{ advancedSearchMB.newAdvancedSearch }"
+					 	immediate="true" />						 	
+	 	
+	 	<h:message for="termToSearchID" styleClass="errorTextClass" />
+	 	
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:panelGroup rendered="#{ simpleSearchMB.hasSearched }">
+		<hr/>
+		<p style="float:right;margin:0px;" >
+			<h:graphicImage value="/images/permalink.png"
+								width="15px"
+								height="15px"
+								onclick="Richfaces.showModalPanel('permalinkPanel', {width:'650px', height:'125px'}); document.getElementById('permalinkURLID').select(); return false;" />
+			<a onclick="Richfaces.showModalPanel('permalinkPanel', {width:'650px', height:'125px'}); document.getElementById('permalinkURLID').select(); return false;"
+				href="#"
+				style="font-weight: bold;">URL for this search</a>
+			
+			<rich:modalPanel id="permalinkPanel">
+				<f:facet name="header">
+					<h:outputText value="URL for this search" />
+				</f:facet>
+				<center>
+					<h:panelGrid columns="1">
+						<h:outputText value="URL for this search:" styleClass="boldFont" />
+						<h:inputText id="permalinkURLID"
+										value="#{ simpleSearchMB.permalinkURL }"
+										size="80"
+										readonly="true" />
+					</h:panelGrid>
+					<p/>
+					<h:commandButton value="Close"
+											onclick="Richfaces.hideModalPanel('permalinkPanel'); return false;"
+											title="Tip: Press Esc to close."/>
+				</center>
+			</rich:modalPanel>
+		</p>
+		<ui:include src="./resultAssets.xhtml">
+			<ui:param name="searchManagedBean" value="#{ simpleSearchMB }"/>
+			<ui:param name="assetsList" value="#{ simpleSearchMB.assetResultList }"/>
+			<ui:param name="searchType" value="SEARCHING"/>
+			<ui:param name="hasPagination" value="true"/>
+		</ui:include>
+	</h:panelGroup>
+	
+	<script>
+		var tempValue = document.getElementById('termToSearchID').value;
+		document.getElementById('termToSearchID').focus();
+		document.getElementById('termToSearchID').value = '';
+		document.getElementById('termToSearchID').value = tempValue;
+	</script>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<!-- http://www.welie.com/patterns/showPattern.php?patternID=paging -->
+
+	<h:panelGroup rendered="#{ searchType == 'SEARCHING' }" >
+		<h:outputText value="#{ searchManagedBean.resultsMessage }"
+								rendered="#{ ! hasPagination }"
+								styleClass="boldFont" />
+		
+		<h:outputText value="#{ searchManagedBean.pageResultsMessage }"
+							rendered="#{ hasPagination }"
+							styleClass="boldFont" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ assetsList.size() > 0 }">
+		<p/>
+		
+		<rich:dataTable value="#{ assetsList }"
+								var="assetSolrDTO"
+								styleClass="noSpacesSolidLineClass"
+								min-width="800px"
+								max-width="1100px"
+								columnClasses="centerColumn,centerColumn,none,none,none,none,centerColumn,centerColumn,centerColumn,centerColumn,none" >
+	
+			<rich:column width="3%" >
+				<f:facet name="header">
+					<h:outputText value="Relevance" />
+				</f:facet>
+				<center>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 10 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 9 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/half_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 8 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 7 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/half_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 6 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 5 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/half_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 4 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 3 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/half_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 2 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/full_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 1 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/half_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+					<h:panelGrid columns="5"
+										rendered="#{ assetSolrDTO.stars == 0 }"
+										styleClass="noSpacesClass" >
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+						<h:graphicImage value="/images/white_block.png" title="#{ assetSolrDTO.score } - #{ assetSolrDTO.stars }" />
+					</h:panelGrid>
+				</center>
+			</rich:column>
+			
+			<rich:column width="5%">
+				<f:facet name="header">
+					<h:outputText value="Summary" />
+				</f:facet>
+				<h:commandLink value="Open"
+										action="#{ assetMB.openAsset }"
+										rendered="#{ searchType == 'SEARCHING' }"
+										immediate="true"
+										styleClass="boldLargeLink" >
+					<f:param name="assetPkToOpen"
+									value="#{ assetSolrDTO.assetPk }" />
+				</h:commandLink>
+				<h:commandLink value="Select"
+										action="#{ assetMB.relatedAssetsMB.addSuggestedAsset }"
+										rendered="#{ searchType == 'SUGGESTING' }"
+										styleClass="boldLargeLink" >
+					<f:param name="suggestedAssetPkToAdd"
+									value="#{ assetSolrDTO.assetPk }" />
+				</h:commandLink>
+			</rich:column>
+			
+			<rich:column width="20%">
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.name }" />
+			</rich:column>
+			
+			<rich:column width="5%">
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.id }" />
+			</rich:column>
+			
+			<rich:column width="5%">
+				<f:facet name="header">
+					<h:outputText value="Version" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.version }" />
+			</rich:column>
+			
+			<rich:column width="5%">
+				<f:facet name="header">
+					<h:outputText value="Type" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.type }" />
+			</rich:column>
+			
+			<rich:column width="6%">
+				<f:facet name="header">
+					<h:outputText value="State" />
+				</f:facet>
+				<h:panelGrid columns="2">
+					<h:outputText value="#{ assetSolrDTO.state }" />
+					<h:graphicImage rendered="#{ assetSolrDTO.isCertifiedState }"
+											value="/images/ok.png"
+											title="Certified"
+											width="15px"
+											height="15px" />
+				</h:panelGrid>
+			</rich:column>
+			
+			<rich:column width="3%">
+				<f:facet name="header">
+					<h:outputText value="Publishing Date" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.strDate }" />
+			</rich:column>
+			
+			<rich:column width="3%">
+				<f:facet name="header">
+					<h:outputText value="#Reused" />
+				</f:facet>
+				<h:outputText value="#{ assetSolrDTO.reuseCounter }" />
+			</rich:column>
+			
+			<rich:column width="3%">
+				<f:facet name="header">
+					<h:outputText value="#Quality" />
+				</f:facet>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 10 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 9 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/half_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 8 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 7 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/half_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 6 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 5 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/half_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 4 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 3 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/half_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 2 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/full_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 1 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/half_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:panelGrid columns="5"
+									rendered="#{ assetSolrDTO.qualityStars == 0 }"
+									styleClass="noSpacesClass" >
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+					<h:graphicImage value="/images/white_star.png" title="#{ assetSolrDTO.averageScore } of 5" />
+				</h:panelGrid>
+				<h:outputText value="Not Rated" rendered="#{ assetSolrDTO.qualityStars == -1 }" />
+			</rich:column>
+			
+		</rich:dataTable>
+		
+		<br/>
+		
+		<h:panelGrid columns="2"
+							rendered="#{ hasPagination }" >
+			<h:commandButton value="Previous Page"
+										action="#{ searchManagedBean.previousPage }"
+										disabled="#{ ! searchManagedBean.canPreviousPage }" >
+			</h:commandButton>
+			<h:commandButton value="Next Page"
+										action="#{ searchManagedBean.nextPage }"
+										disabled="#{ ! searchManagedBean.canNextPage }" >
+			</h:commandButton>
+		</h:panelGrid>
+	
+	</h:panelGroup>
+		
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="login::#login.jsf" NAME="output"
+    PATH="/login.jsf" TARGET="rules:#login.jsf" TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="registerLogin::#registerLogin.jsf"
+    NAME="output1" PATH="/registerLogin.jsf"
+    TARGET="rules:#registerLogin.jsf" TITLE="registerLogin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="registeredLogin::#registeredLogin.jsf"
+    NAME="output2" PATH="/registeredLogin.jsf"
+    TARGET="rules:#registeredLogin.jsf" TITLE="registeredLogin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="resetedPassword::#resetedPassword.jsf"
+    NAME="output3" PATH="/resetedPassword.jsf"
+    TARGET="rules:#resetedPassword.jsf" TITLE="resetedPassword" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="resendCodeLogin::#resendCodeLogin.jsf"
+    NAME="output4" PATH="/resendCodeLogin.jsf"
+    TARGET="rules:#resendCodeLogin.jsf" TITLE="resendCodeLogin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="main::#main.jsf" NAME="output5"
+    PATH="/main.jsf" TARGET="rules:#main.jsf" TITLE="main" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="addAsset::#addAsset.jsf" NAME="output6"
+    PATH="/addAsset.jsf" TARGET="rules:#addAsset.jsf" TITLE="addAsset" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="published::#published.jsf" NAME="output7"
+    PATH="/published.jsf" TARGET="rules:#published.jsf"
+    TITLE="published" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="openAsset::#openAsset.jsf" NAME="output8"
+    PATH="/openAsset.jsf" TARGET="rules:#openAsset.jsf"
+    TITLE="openAsset" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="searchAssets::#searchAssets.jsf"
+    NAME="output9" PATH="/searchAssets.jsf"
+    TARGET="rules:#searchAssets.jsf" TITLE="searchAssets" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="advancedSearch::#advancedSearch.jsf"
+    NAME="output10" PATH="/advancedSearch.jsf"
+    TARGET="rules:#advancedSearch.jsf" TITLE="advancedSearch" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="tags::#tags.jsf" NAME="output11"
+    PATH="/tags.jsf" TARGET="rules:#tags.jsf" TITLE="tags" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="consumed::#consumed.jsf" NAME="output12"
+    PATH="/consumed.jsf" TARGET="rules:#consumed.jsf" TITLE="consumed" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="certify::#certify.jsf" NAME="output13"
+    PATH="/certify.jsf" TARGET="rules:#certify.jsf" TITLE="certify" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="feedbackList::#feedbackList.jsf"
+    NAME="output14" PATH="/feedbackList.jsf"
+    TARGET="rules:#feedbackList.jsf" TITLE="feedbackList" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="feedbackAsset::#feedbackAsset.jsf"
+    NAME="output15" PATH="/feedbackAsset.jsf"
+    TARGET="rules:#feedbackAsset.jsf" TITLE="feedbackAsset" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="myPublishedAssets::#myPublishedAssets.jsf"
+    NAME="output16" PATH="/myPublishedAssets.jsf"
+    TARGET="rules:#myPublishedAssets.jsf" TITLE="myPublishedAssets" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="assetsForCertification::#assetsForCertification.jsf"
+    NAME="output17" PATH="/assetsForCertification.jsf"
+    TARGET="rules:#assetsForCertification.jsf"
+    TITLE="assetsForCertification" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="assetRemoved::#assetRemoved.jsf"
+    NAME="output18" PATH="/assetRemoved.jsf"
+    TARGET="rules:#assetRemoved.jsf" TITLE="assetRemoved" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sendFeedbackMessage::#sendFeedbackMessage.jsf" NAME="output19"
+    PATH="/sendFeedbackMessage.jsf"
+    TARGET="rules:#sendFeedbackMessage.jsf" TITLE="sendFeedbackMessage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="feedbackMessageSent::#feedbackMessageSent.jsf" NAME="output20"
+    PATH="/feedbackMessageSent.jsf"
+    TARGET="rules:#feedbackMessageSent.jsf" TITLE="feedbackMessageSent" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="resetApplicationServer::#resetApplicationServer.jsf"
+    NAME="output21" PATH="/resetApplicationServer.jsf"
+    TARGET="rules:#resetApplicationServer.jsf"
+    TITLE="resetApplicationServer" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#published.jsf" PATH="/published.jsf"
+  SHAPE="304,1489,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#feedbackMessageSent.jsf"
+  PATH="/feedbackMessageSent.jsf" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#assetsForCertification.jsf"
+  PATH="/assetsForCertification.jsf" SHAPE="304,2609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#assetRemoved.jsf" PATH="/assetRemoved.jsf"
+  SHAPE="304,2721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#resetApplicationServer.jsf"
+  PATH="/resetApplicationServer.jsf" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#myPublishedAssets.jsf"
+  PATH="/myPublishedAssets.jsf" SHAPE="304,2497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#certify.jsf" PATH="/certify.jsf"
+  SHAPE="304,2161,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#resetedPassword.jsf"
+  PATH="/resetedPassword.jsf" SHAPE="304,1041,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#resendCodeLogin.jsf"
+  PATH="/resendCodeLogin.jsf" SHAPE="304,1153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#feedbackAsset.jsf" PATH="/feedbackAsset.jsf"
+  SHAPE="304,2385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#main.jsf" PATH="/main.jsf"
+  SHAPE="304,1265,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sendFeedbackMessage.jsf"
+  PATH="/sendFeedbackMessage.jsf" SHAPE="304,2833,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#openAsset.jsf" PATH="/openAsset.jsf"
+  SHAPE="304,1601,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#registerLogin.jsf" PATH="/registerLogin.jsf"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login.jsf" PATH="/login.jsf"
+  SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#addAsset.jsf" PATH="/addAsset.jsf"
+  SHAPE="304,1377,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#tags.jsf" PATH="/tags.jsf"
+  SHAPE="304,1937,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#advancedSearch.jsf"
+  PATH="/advancedSearch.jsf" SHAPE="304,1825,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#feedbackList.jsf" PATH="/feedbackList.jsf"
+  SHAPE="304,2273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#searchAssets.jsf" PATH="/searchAssets.jsf"
+  SHAPE="304,1713,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#consumed.jsf" PATH="/consumed.jsf"
+  SHAPE="304,2049,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#registeredLogin.jsf"
+  PATH="/registeredLogin.jsf" SHAPE="304,929,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

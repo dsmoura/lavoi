@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Evaluate My Reused Assets</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Evaluate My Reused Assets"
+							styleClass="pageTitle" />
+	<p/>
+	<br/>
+	
+	<h:outputText value="You don't have reused assets yet."
+						rendered="#{ feedbackMB.feedbackDTOs.size() == 0 }"
+						styleClass="semiLargeBoldFont" />
+
+	<rich:dataTable value="#{ feedbackMB.feedbackDTOs }"
+							var="feedbackDTO"
+							rendered="#{ feedbackMB.feedbackDTOs.size() > 0 }"
+							styleClass="noSpacesSolidLineClass"
+							width="800px" >
+	
+		<rich:column width="20%">
+			<f:facet name="header">
+				<h:outputText value="Evaluate" />
+			</f:facet>
+			<h:commandLink value="Evaluate"
+									action="#{ feedbackMB.openAssetToFeedback }"
+									immediate="true"
+									rendered="#{ ! feedbackDTO.hasFeedback}" >
+				<f:param name="assetPkToFeedback"
+								value="#{ feedbackDTO.asset.assetPk }" />
+			</h:commandLink>
+			<h:commandLink value="Edit Evaluation"
+									action="#{ feedbackMB.openAssetToFeedback }"
+									immediate="true"
+									rendered="#{ feedbackDTO.hasFeedback}" >
+				<f:param name="assetPkToFeedback"
+								value="#{ feedbackDTO.asset.assetPk }" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column width="5%">
+			<f:facet name="header">
+				<h:outputText value="Asset Summary" />
+			</f:facet>
+			<h:commandLink value="Open"
+									action="#{ assetMB.openAsset }"
+									immediate="true"
+									styleClass="boldLargeLink" >
+				<f:param name="assetPkToOpen"
+								value="#{ feedbackDTO.asset.assetPk }" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputLabel value="Date of Feedback" />
+			</f:facet>
+			<h:outputText value="#{ feedbackDTO.strDate }"
+								rendered="#{ feedbackDTO.hasFeedback}" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+			<h:outputText value="-"
+								rendered="#{ ! feedbackDTO.hasFeedback}" >
+			</h:outputText>
+		</rich:column>
+		
+		<rich:column width="20%">
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+			<h:outputText value="#{ feedbackDTO.asset.name }" />
+		</rich:column>
+		
+		<rich:column width="10%">
+			<f:facet name="header">
+				<h:outputText value="ID" />
+			</f:facet>
+			<h:outputText value="#{ feedbackDTO.asset.id }" />
+		</rich:column>
+		
+		<rich:column width="10%">
+			<f:facet name="header">
+				<h:outputText value="State" />
+			</f:facet>
+			<h:outputText value="#{ feedbackDTO.asset.state }" />
+		</rich:column>
+		
+		<rich:column width="10%">
+			<f:facet name="header">
+				<h:outputText value="Version" />
+			</f:facet>
+			<h:outputText value="#{ feedbackDTO.asset.version }" />
+		</rich:column>
+		
+	</rich:dataTable>
+
+</ui:define>
+</ui:composition>
+
+</html>

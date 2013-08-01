@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	version="1.2">
+	
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+	</application>
+	
+	<converter>
+		<converter-id>JavaBeanConverter</converter-id>
+		<converter-class>br.ufrgs.inf.dsmoura.repository.controller.util.JavaBeanConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>FloatCommaConverter</converter-id>
+		<converter-class>br.ufrgs.inf.dsmoura.repository.controller.converter.FloatCommaConverter</converter-class>		
+	</converter>
+	
+	<converter>
+		<converter-id>StringTrimConverter</converter-id>
+		<converter-class>br.ufrgs.inf.dsmoura.repository.controller.converter.StringTrimConverter</converter-class>		
+	</converter>
+	
+	<converter>
+		<converter-id>SearchOrderConverter</converter-id>
+		<converter-class>br.ufrgs.inf.dsmoura.repository.controller.converter.SearchOrderConverter</converter-class>		
+	</converter>
+	
+	<validator>
+    <validator-id>AssetStateValidator</validator-id>
+    <validator-class>br.ufrgs.inf.dsmoura.repository.controller.validator.AssetStateValidator</validator-class>
+  </validator>
+  
+  <validator>
+    <validator-id>EmailValidator</validator-id>
+    <validator-class>br.ufrgs.inf.dsmoura.repository.controller.validator.EmailValidator</validator-class>
+  </validator>
+  
+  <validator>
+    <validator-id>NotAfterTodayValidator</validator-id>
+    <validator-class>br.ufrgs.inf.dsmoura.repository.controller.validator.NotAfterTodayValidator</validator-class>
+  </validator>
+	
+	<managed-bean>
+		<managed-bean-name>assetMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.asset.AssetMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>searchMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.search.SearchMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>simpleSearchMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.search.SimpleSearchMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>advancedSearchMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.search.AdvancedSearchMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>listMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.ListMB</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>tagsMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.TagsMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>feedbackMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.asset.FeedbackMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>mainMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.MainMB</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>loginMB</managed-bean-name>
+		<managed-bean-class>br.ufrgs.inf.dsmoura.repository.controller.LoginMB</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.jsf</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-outcome>registerLogin</from-outcome>
+			<to-view-id>/registerLogin.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>registeredLogin</from-outcome>
+			<to-view-id>/registeredLogin.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>resetedPassword</from-outcome>
+			<to-view-id>/resetedPassword.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>resendCodeLogin</from-outcome>
+			<to-view-id>/resendCodeLogin.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>main</from-outcome>
+			<to-view-id>/main.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>addAsset</from-outcome>
+			<to-view-id>/addAsset.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>published</from-outcome>
+			<to-view-id>/published.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>openAsset</from-outcome>
+			<to-view-id>/openAsset.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>searchAssets</from-outcome>
+			<to-view-id>/searchAssets.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>advancedSearch</from-outcome>
+			<to-view-id>/advancedSearch.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>tags</from-outcome>
+			<to-view-id>/tags.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>consumed</from-outcome>
+			<to-view-id>/consumed.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>certify</from-outcome>
+			<to-view-id>/certify.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>feedbackList</from-outcome>
+			<to-view-id>/feedbackList.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>feedbackAsset</from-outcome>
+			<to-view-id>/feedbackAsset.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>myPublishedAssets</from-outcome>
+			<to-view-id>/myPublishedAssets.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>assetsForCertification</from-outcome>
+			<to-view-id>/assetsForCertification.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>assetRemoved</from-outcome>
+			<to-view-id>/assetRemoved.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>sendFeedbackMessage</from-outcome>
+			<to-view-id>/sendFeedbackMessage.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>feedbackMessageSent</from-outcome>
+			<to-view-id>/feedbackMessageSent.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>resetApplicationServer</from-outcome>
+			<to-view-id>/resetApplicationServer.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+</faces-config>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+					xmlns="http://java.sun.com/xml/ns/persistence"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="lavoi" transaction-type="RESOURCE_LOCAL" >
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UserQueryLogDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UserInterfaceTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UserInterfaceDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UserDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UserCommentDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.UseCaseDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Usage</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.TestTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.TestMethodTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Test</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.TagDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.SystemPropertyDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.SourceCodeTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.SourceCodeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Solution</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.SoftwareProductQualityDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.SoftwareLicenseDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Requirements</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.RelatedAssetTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.RelatedAsset</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.QualityInUseDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ProjectDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ProgrammingLanguageDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ParameterDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.OrganizationDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.OperationalSystemTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.OperationDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.NonFunctionalRequirementTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.NonFunctionalRequirementDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.LogUserLoginDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.InternationalizationTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.InterfaceSpecDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Implementation</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.FunctionalRequirementTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.FunctionalRequirementDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.FreeFormDescriptorDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.FeedbackMessageDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.FeedbackDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.EffortDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.DesignPatternDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Design</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.DescriptorGroupDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ConsumptionDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ConditionDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Classification</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.AssetType</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.AssetStateType</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.AssetIDSequenceDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Asset</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ArtifactDependencyTypeDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ArtifactDependencyDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ArtifactDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ApplicationSubdomain</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.ApplicationDomain</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.Analysis</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.AdjustmentDTO</class>
+		<class>br.ufrgs.inf.dsmoura.repository.model.entity.WsdlDTO</class>
+		<properties>
+			<property name="jboss.as.jpa.providerModule" value="procergs.eclipselink" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/lavoidb" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="postgres11" />
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
+			<property name="eclipselink.ddl-generation.output-mode" value="both" />
+			<property name="eclipselink.logging.level" value="FINE"/>
+		</properties>
+		<shared-cache-mode>NONE</shared-cache-mode>
+	</persistence-unit>
+</persistence>

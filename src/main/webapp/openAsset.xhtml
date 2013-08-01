@@ -1,0 +1,1320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+
+<ui:define name="title">Asset Summary</ui:define>
+
+<ui:define name="content">
+
+<p/>
+
+<h:outputLabel value="Asset Summary" styleClass="pageTitle" />
+
+<p/>
+<hr />
+	
+<h:panelGroup rendered="#{ assetMB.isValidAsset }">
+	
+	<p/>
+	<h:outputLabel value="Description" styleClass="pageSubtitle" />
+	<p style="float:right;margin:0px;" >
+		<h:graphicImage value="/images/permalink.png"
+							width="15px"
+							height="15px"
+							onclick="Richfaces.showModalPanel('permalinkPanel', {width:'650px', height:'125px'}); document.getElementById('permalinkURLID').select(); return false;" />
+		<a onclick="Richfaces.showModalPanel('permalinkPanel', {width:'650px', height:'125px'}); document.getElementById('permalinkURLID').select(); return false;"
+			href="#"
+			style="font-weight: bold;">Permalink</a>
+		
+		<rich:modalPanel id="permalinkPanel">
+			<f:facet name="header">
+				<h:outputText value="Permalink" />
+			</f:facet>
+			<center>
+				<h:panelGrid columns="1">
+					<h:outputText value="Permalink:" styleClass="boldFont" />
+					<h:inputText id="permalinkURLID"
+									value="#{ assetMB.permalinkURL }"
+									size="80"
+									readonly="true" />
+				</h:panelGrid>
+				<p/>
+				<h:commandButton value="Close"
+										onclick="Richfaces.hideModalPanel('permalinkPanel'); return false;"
+										title="Tip: Press Esc to close."/>
+			</center>
+		</rich:modalPanel>
+	</p>
+	<p/>
+	
+	<p style="float:right;margin:0px;" >
+	
+		<h:commandLink action="#{ assetMB.downloadAsset }"
+						onclick="return openUserLoginPanel();" >
+			<h:graphicImage value="/images/reuse.png"
+									title="download asset" />
+		</h:commandLink>
+		<h:commandButton action="#{ assetMB.downloadAsset }"
+							onclick="return openUserLoginPanel();"
+							value="Download"
+							styleClass="largerButton" />
+							
+		<br/>
+		<br/>
+		
+		<h:commandLink action="#{ feedbackMB.openAssetToFeedback }"
+						immediate="true"
+						rendered="#{ assetMB.canEvaluate }" >
+			<h:graphicImage value="/images/feedback.png" title="feedback and rate the quality" />
+			<h:outputText value="Evaluate Quality..." styleClass="largeFont" />
+			<f:param name="assetPkToFeedback"
+								value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+		
+		<br/>
+		<br/>
+	
+		<h:commandLink action="#{ assetMB.editAsset }"
+						rendered="#{ assetMB.canEditAsset }"
+						immediate="true" >
+			<h:graphicImage value="/images/edit.png"
+									title="edit asset" />
+			<h:outputText value="Edit..."
+								styleClass="largeFont" />
+			<f:param name="assetPkToEdit"
+							value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+		
+		<br/>
+		<br/>
+		
+		<h:commandLink action="#{ assetMB.assetCertification }"
+						rendered="#{ assetMB.canCertifyAsset }"
+						immediate="true" >
+			<h:graphicImage value="/images/ok.png"
+									title="certify asset" />
+			<h:outputText value="Certify..."
+								styleClass="largeFont" />
+		</h:commandLink>
+		
+		<br/>
+		<br/>
+		
+		<h:commandLink action="#{ assetMB.discontinueAsset }"
+						rendered="#{ assetMB.canDiscontinueAsset }"
+						immediate="true"
+						onclick="if( ! confirm('Do you confirm the discontinuity of the asset?') ) { return false; }" >
+			<h:graphicImage value="/images/warning.png"
+									title="warning discontinue" />
+			<h:outputText value="Discontinue"
+								styleClass="largeFont" />
+		</h:commandLink>
+	</p>
+	
+	<h:panelGrid columns="2"
+						columnClasses="alignTopRightColumn,none"
+						 >
+		<h:outputLabel value="Name:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.name }" />
+		
+		<h:outputLabel value="ID:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.id }" />
+		
+		<h:outputLabel value="Version:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.version }" />
+		
+		<h:outputLabel value="Type:" styleClass="fieldFont" />
+		<h:panelGrid columns="4">
+			<h:outputText value="#{ assetMB.asset.type }" />
+			<h:outputText value=" " />
+			<h:outputLabel value="Other Type:" styleClass="fieldFont" rendered="#{ assetMB.isOtherType }" />
+			<h:outputText value="#{ assetMB.asset.otherType }" rendered="#{ assetMB.isOtherType }" />
+		</h:panelGrid>
+		
+		<h:outputLabel value="State:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.state }" />
+		
+		<h:outputLabel value="Software License:"
+						styleClass="fieldFont"
+						rendered="#{ assetMB.isForUseSoftwareLicense }" />
+		<h:panelGrid columns="4"
+						rendered="#{ assetMB.isForUseSoftwareLicense }">
+			<h:outputText value="#{ assetMB.asset.softwareLicenseDTO }" />
+			<h:outputText value=" " />
+			<h:outputLabel value="Other Software License:" styleClass="fieldFont" rendered="#{ assetMB.isOtherSoftwareLicense }" />
+			<h:outputText value="#{ assetMB.asset.otherSoftwareLicense }" rendered="#{ assetMB.isOtherSoftwareLicense }" />
+		</h:panelGrid>
+		
+		<h:outputLabel value=" "
+								rendered="#{ assetMB.GPLSoftwareLicenseCompatible or assetMB.GPLSoftwareLicenseNotCompatible }" />
+		<h:outputText value="The license is GNU-Compatible."
+								rendered="#{ assetMB.GPLSoftwareLicenseCompatible }"
+								styleClass="greenTextClass" />
+		<h:outputText value="Warning: The license is not GNU-Compatible."
+								rendered="#{ assetMB.GPLSoftwareLicenseNotCompatible }"
+								styleClass="errorTextClass" />
+		
+		<h:outputLabel value="Creator's Usernames:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.usage.creatorUsername }" />
+		
+		<h:outputLabel value="Creation Date:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.strCreationDate }" />
+		
+		<h:outputLabel value="Publishing Date:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.strDate }" />
+		
+		<h:outputLabel value="Access Rights:" styleClass="fieldFont" rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" />
+		<h:outputText value="All consumers from all projects and all organizations can consume (default)" rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" />
+		
+		<h:panelGrid columns="3" rendered="false" >
+			<h:panelGrid styleClass="noSpacesSolidLineClass" >
+				<h:selectOneRadio value="#{ assetMB.asset.accessRights }"
+											layout="pageDirection"
+											disabled="true" >
+					<f:selectItem itemLabel="All consumers from all projects and all organizations can consume (default)" itemValue="#{ assetMB.allAccessRigths }" />
+					<f:selectItem itemLabel="Only consumers from projects and organizations related with this asset can consume" itemValue="#{ assetMB.orgProjOnlyAccessRigths }" />
+					<f:selectItem itemLabel="Only consumers from projects related with this asset can consume" itemValue="#{ assetMB.projectsOnlyAccessRigths }" />
+				</h:selectOneRadio>
+			</h:panelGrid>
+		</h:panelGrid>	
+		
+		<h:outputLabel value="Short Description:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.shortDescription }" />
+								
+		<h:outputLabel value="Description:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.asset.description }" styleClass="preformatted" />
+	</h:panelGrid>
+	
+	<h:panelGroup rendered="#{ assetMB.hasAnotherVersions }">
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Another Versions" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="2" rendered="#{ assetMB.hasID }" >
+			<h:outputLabel value="Another published versions with this ID:" />
+			 <rich:dataList var="assetSolrDTO"
+			 						value="#{ assetMB.anotherVersions }" >
+					<h:commandLink value="#{ assetSolrDTO.version } on #{ assetSolrDTO.strDate }"
+											action="#{ assetMB.openAsset }"
+											immediate="true"
+											styleClass="minorBoldFont" >
+						<f:param name="assetPkToOpen"
+										value="#{ assetSolrDTO.assetPk }" />
+					</h:commandLink>
+			 </rich:dataList>
+			 <h:outputLabel rendered="#{ ! assetMB.hasAnotherVersions }" value="None." />
+		</h:panelGrid>
+	</h:panelGroup>
+	
+	<p/>
+	<hr />
+	<p/>
+	<h:outputLabel value="Classification" styleClass="pageSubtitle" />
+	<p/>
+	
+	<h:panelGrid columns="1" rendered="#{ assetMB.classificationMB.DTO.applicationSubdomains.size() > 0 }" >
+		<h:outputLabel value="Application Domains:" styleClass="fieldFont" />
+		<h:dataTable id="applicationSubdomainTable"
+							value="#{ assetMB.classificationMB.DTO.applicationSubdomains }"
+							var="applicationSubdomain"
+							styleClass="datatablelarge"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Domain" />
+					</f:facet>
+					<h:outputText value="#{ applicationSubdomain.applicationDomain.name } " />
+					<h:outputText value=": #{ assetMB.classificationMB.DTO.otherApplicationDomain }"
+										rendered="#{ applicationSubdomain.applicationDomain.name == 'Other' }" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Subdomain" />
+					</f:facet>
+					<h:outputText value="#{ applicationSubdomain.name }" />
+					<h:outputText value=": #{ assetMB.classificationMB.DTO.otherApplicationSubdomain }"
+										rendered="#{ applicationSubdomain.name == 'Other' }" />
+				</h:column>
+		</h:dataTable>
+		<p/>
+	</h:panelGrid>
+	
+	<h:panelGrid columns="1" rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" >
+		<h:outputLabel value="Projects:" styleClass="fieldFont" />
+		<h:dataTable id="projectsPanel"
+							value="#{ assetMB.classificationMB.DTO.projectDTOs }"
+							var="projectDTO"
+							styleClass="datatablelarge"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Organization" />
+					</f:facet>
+					<h:outputText value="#{ projectDTO.organizationDTO.name } " />
+				</h:column>
+	
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Project" />
+					</f:facet>
+					<h:outputText value="#{ projectDTO.name }" />
+				</h:column>
+		</h:dataTable>
+		<p/>
+	</h:panelGrid>
+	
+	<h:panelGrid columns="1" rendered="#{ assetMB.classificationMB.DTO.tagDTOs.size() > 0 }" styleClass="tagcloud" >
+		<h:outputLabel value="Tags:"
+								styleClass="fieldFont" />
+		<a4j:repeat value="#{ assetMB.classificationMB.DTO.tagDTOs }"
+						var="tag" >
+			<h:graphicImage value="/images/tag.png"
+									width="15px"
+									height="15px" />
+			<h:commandLink value="#{ tag.name }"
+							action="#{ simpleSearchMB.searchByTag }"
+							styleClass="semiLargeBoldFont"
+							title="List assets with tag #{ tag.name }" >
+				<f:param name="tagValueParam" value="#{ tag.name }" />
+				<f:param name="tagTypeToSearchParam" value="tag" />
+			</h:commandLink>
+		</a4j:repeat>
+		<p/>
+	</h:panelGrid>
+	
+	<h:panelGrid columns="1" rendered="#{ assetMB.classificationMB.DTO.descriptorGroupDTOs.size() > 0 }">
+		<h:outputLabel value="Descriptors Groups:" styleClass="fieldFont" />
+		<h:dataTable id="descriptorsGroupsTable"
+							value="#{ assetMB.classificationMB.DTO.descriptorGroupDTOs }"
+							var="descriptorGroupDTO"
+							styleClass="datatablelarge"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow" >
+			<h:column>
+				<h:panelGrid columns="2">
+					<h:outputText value="Name:" styleClass="boldFont" />
+					<h:outputText value="#{ descriptorGroupDTO.name }" />
+				</h:panelGrid>
+				<h:dataTable value="#{ descriptorGroupDTO.freeFormDescriptorDTOs }"
+									var="descriptorDTO"
+									styleClass="datatablelarge"
+					    			headerClass="datatableHeader"
+					    			rowClasses="datatableOddRow,datatableEvenRow" >
+					<h:column>
+			  			<f:facet name="header">
+							<h:outputText value="Descriptor Name" />
+						</f:facet>
+						<h:outputText value="#{ descriptorDTO.name }" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Value" />
+						</f:facet>
+						<h:outputText value="#{ descriptorDTO.freeFormValue }"  />
+					</h:column>
+	  			</h:dataTable>
+	  			<p/>
+			</h:column>
+		</h:dataTable>
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Reuse Counter:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.classificationMB.DTO.reuseCounter } time(s)" />
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Average Quality Score:" styleClass="fieldFont" />
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 10 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 9 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/half_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 8 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 7 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/half_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 6 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 5 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/half_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 4 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 3 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/half_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 2 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/full_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 1 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/half_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:panelGrid columns="5"
+							rendered="#{ assetMB.classificationMB.qualityStars == 0 }"
+							styleClass="noSpacesClass" >
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+			<h:graphicImage value="/images/white_star.png" title="#{ assetMB.classificationMB.DTO.averageScore } of 5" />
+		</h:panelGrid>
+		<h:outputText value="Not Rated"
+							rendered="#{ assetMB.classificationMB.DTO.averageScore == null }" />
+	</h:panelGrid>
+	
+	<h:panelGroup rendered="#{ assetMB.effortMB.hasEffort }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Effort" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="3"
+						columnClasses="rightColumn,none,none" >
+			<h:outputLabel value="Estimated Development Time:"
+							styleClass="fieldFont"
+							rendered="#{ assetMB.effortMB.DTO.estimatedTime != null}" />
+			<h:outputText value="#{ assetMB.effortMB.DTO.estimatedTime }"
+							rendered="#{ assetMB.effortMB.DTO.estimatedTime != null}" >
+				<f:convertNumber groupingUsed="false"
+										minIntegerDigits="0"
+										maxIntegerDigits="6"
+										minFractionDigits="0"
+										maxFractionDigits="2" />
+			</h:outputText>
+			<h:outputText value="hours"
+							rendered="#{ assetMB.effortMB.DTO.estimatedTime != null}" />
+			
+			<h:outputLabel value="Real Development Time:"
+							styleClass="fieldFont"
+							rendered="#{ assetMB.effortMB.DTO.realTime != null}" />
+			<h:outputText value="#{ assetMB.effortMB.DTO.realTime }"
+							rendered="#{ assetMB.effortMB.DTO.realTime != null}" >
+				<f:convertNumber minIntegerDigits="0"
+									maxIntegerDigits="6"
+									minFractionDigits="0"
+									maxFractionDigits="2" />
+			</h:outputText>
+			<h:outputText value="hours"
+							rendered="#{ assetMB.effortMB.DTO.realTime != null}" />
+							
+			<h:outputLabel value="Monetary Cost:"
+							styleClass="fieldFont"
+							rendered="#{ assetMB.effortMB.DTO.monetary != null}" />
+			<h:outputText value="#{ assetMB.effortMB.DTO.monetary }"
+							rendered="#{ assetMB.effortMB.DTO.monetary != null}" >
+				<f:convertNumber minIntegerDigits="0"
+									maxIntegerDigits="6"
+									minFractionDigits="0"
+									maxFractionDigits="2" />
+			</h:outputText>
+			<h:outputText value="#{ assetMB.effortMB.currencyCode }"
+							rendered="#{ assetMB.effortMB.DTO.monetary != null}" />
+			
+			<h:outputLabel value="Team Members:"
+							styleClass="fieldFont"
+							rendered="#{ assetMB.effortMB.DTO.teamMembers != null}" />
+			<h:outputText value="#{ assetMB.effortMB.DTO.teamMembers }"
+							rendered="#{ assetMB.effortMB.DTO.teamMembers != null}" />
+			<h:outputText value="people"
+							rendered="#{ assetMB.effortMB.DTO.teamMembers != null}" />
+			
+			<h:outputLabel value="Lines of Code (LOC):"
+							styleClass="fieldFont"
+							rendered="#{ assetMB.effortMB.DTO.linesOfCode != null}" />
+			<h:outputText value="#{ assetMB.effortMB.DTO.linesOfCode }"
+							rendered="#{ assetMB.effortMB.DTO.linesOfCode != null}" />
+			<h:outputText value="lines"
+							rendered="#{ assetMB.effortMB.DTO.linesOfCode != null}" />
+		</h:panelGrid>
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{ assetMB.requirementsMB.hasRequirements }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Requirements" styleClass="pageSubtitle" />
+		<p/>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.requirementsMB.DTO.useCaseDTOs }" />
+			<ui:param name="artifactType" value="USE_CASE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.requirementsMB.DTO.userInterfaceDTOs }" />
+			<ui:param name="artifactType" value="USER_INTERFACE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.requirementsMB.DTO.functionalRequirementDTOs }" />
+			<ui:param name="artifactType" value="FUNCTIONAL_REQ" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.requirementsMB.DTO.nonFunctionalRequirementDTOs }" />
+			<ui:param name="artifactType" value="NON_FUNCTIONAL_REQ" />
+		</ui:include>
+		
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.requirementsMB.DTO.internationalizationTypeDTOs.size() > 0 }" >
+			<h:outputLabel value="Internationalization Languages:" styleClass="fieldFont" />
+			<h:dataTable id="internationalizationTable"
+								value="#{ assetMB.requirementsMB.DTO.internationalizationTypeDTOs }"
+								var="internationalizationTypeDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ internationalizationTypeDTO.name }" />
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+		
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.requirementsMB.DTO.operationalSystemTypeDTOs.size() > 0 }" >
+			<h:outputLabel value="Operational Systems:" styleClass="fieldFont" />
+			<h:dataTable id="operationalSystemTable"
+								value="#{ assetMB.requirementsMB.DTO.operationalSystemTypeDTOs }"
+								var="operationalSystemTypeDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ operationalSystemTypeDTO.name }" />
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ assetMB.analysisMB.hasAnalysis }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Analysis" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.analysisMB.DTO.interfaceSpecDTOs.size() > 0 }" >
+			<h:outputLabel value="Interface Specification:" styleClass="fieldFont" />
+			<h:dataTable id="interfaceSpecTable"
+								value="#{ assetMB.analysisMB.DTO.interfaceSpecDTOs }"
+								var="interfaceSpecDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+		
+				<h:column>
+					<h:panelGrid columns="2">
+						<h:outputText value="Name:" styleClass="boldFont" />
+						<h:outputText value="#{ interfaceSpecDTO.name }"
+											size="60" />
+						<h:outputText value="Description:" styleClass="boldFont" />
+						<h:outputText value="#{ interfaceSpecDTO.description }"
+											size="80" />
+					</h:panelGrid>
+					
+					<h:dataTable value="#{ interfaceSpecDTO.operationDTOs }"
+										var="operationDTO"
+										styleClass="datatablelarge"
+						    			headerClass="datatableHeader"
+						    			rowClasses="datatableOddRow,datatableEvenRow" >
+						 
+						<h:column>
+				  			<f:facet name="header">
+								<h:outputText value="Operation Name" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.name }"
+												size="40" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Initiates Transaction" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.initiatesTransactionStr }" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Description" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.description }"
+												size="60" />
+						</h:column>
+						
+		  			</h:dataTable>
+		  			
+		  			<p/>
+					
+				</h:column>
+				
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.analysisMB.DTO.useCaseDTOs }" />
+			<ui:param name="artifactType" value="USE_CASE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.analysisMB.DTO.userInterfaceDTOs }" />
+			<ui:param name="artifactType" value="USER_INTERFACE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.analysisMB.DTO.artifactDTOs }" />
+			<ui:param name="artifactType" value="GENERAL" />
+		</ui:include>
+		
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ assetMB.designMB.hasDesign }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Design" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.designMB.DTO.interfaceSpecDTOs.size() > 0 }" >
+			<h:outputLabel value="Interface Specification:" styleClass="fieldFont" />
+			<h:dataTable value="#{ assetMB.designMB.DTO.interfaceSpecDTOs }"
+								var="interfaceSpecDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+		
+				<h:column>
+					<h:panelGrid columns="2">
+						<h:outputText value="Name:" styleClass="boldFont" />
+						<h:outputText value="#{ interfaceSpecDTO.name }"
+											size="60" />
+						<h:outputText value="Description:" styleClass="boldFont" />
+						<h:outputText value="#{ interfaceSpecDTO.description }"
+											size="80" />
+					</h:panelGrid>
+					
+					<h:dataTable value="#{ interfaceSpecDTO.operationDTOs }"
+										var="operationDTO"
+										styleClass="datatablelarge"
+						    			headerClass="datatableHeader"
+						    			rowClasses="datatableOddRow,datatableEvenRow" >
+						 
+						<h:column>
+				  			<f:facet name="header">
+								<h:outputText value="Operation Name" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.name }"
+												size="40" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Initiates Transaction" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.initiatesTransactionStr }" />
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Description" />
+							</f:facet>
+							<h:outputText value="#{ operationDTO.description }"
+												size="60" />
+						</h:column>
+						
+		  			</h:dataTable>
+		  			
+		  			<p/>
+					
+				</h:column>
+				
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.designMB.DTO.designPatternDTOs.size() > 0 }" >
+			<h:outputLabel value="Design Patterns:" styleClass="fieldFont" />
+			<h:dataTable value="#{ assetMB.designMB.DTO.designPatternDTOs }"
+								var="designPatternDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+			    				rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ designPatternDTO.name }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.designMB.DTO.userInterfaceDTOs }" />
+			<ui:param name="artifactType" value="USER_INTERFACE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.designMB.DTO.artifactDTOs }" />
+			<ui:param name="artifactType" value="GENERAL" />
+		</ui:include>
+		
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ assetMB.implementationMB.hasImplementation }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Implementation" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.implementationMB.DTO.programmingLanguageDTOs.size() > 0 }" >
+			<h:outputLabel value="Programming Languages:" styleClass="fieldFont" />
+			<h:dataTable id="programmingLanguagesTable"
+								value="#{ assetMB.implementationMB.DTO.programmingLanguageDTOs }"
+								var="programmingLanguageDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ programmingLanguageDTO.name }" />
+					<h:outputText value=": #{ assetMB.implementationMB.DTO.otherProgrammingLanguage }"
+										rendered="#{ programmingLanguageDTO.name == 'Other' }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.implementationMB.DTO.designPatternDTOs.size() > 0 }" >
+			<h:outputLabel value="Design Patterns:" styleClass="fieldFont" />
+			<h:dataTable value="#{ assetMB.implementationMB.DTO.designPatternDTOs }"
+								var="designPatternDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+			    				rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ designPatternDTO.name }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.implementationMB.DTO.sourceCodeDTOs }" />
+			<ui:param name="artifactType" value="SOURCE_CODE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.implementationMB.DTO.userInterfaceDTOs }" />
+			<ui:param name="artifactType" value="USER_INTERFACE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.implementationMB.DTO.wsdlDTOs }" />
+			<ui:param name="artifactType" value="WSDL" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.implementationMB.DTO.artifactDTOs }" />
+			<ui:param name="artifactType" value="GENERAL" />
+		</ui:include>
+		
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ assetMB.testMB.hasTest }" >
+		<p/>
+		<hr />
+		<p/>
+		<h:outputLabel value="Test" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.testMB.DTO.testTypeDTOs.size() > 0 }" >
+			<h:outputLabel value="Test Type:" styleClass="fieldFont" />
+			<h:dataTable id="testTypeTable"
+								value="#{ assetMB.testMB.DTO.testTypeDTOs }"
+								var="testTypeDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ testTypeDTO.name }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.testMB.DTO.testMethodTypeDTOs.size() > 0 }" >
+			<h:outputLabel value="Test Method Type:" styleClass="fieldFont" />
+			<h:dataTable id="testMethodTypeTable"
+								value="#{ assetMB.testMB.DTO.testMethodTypeDTOs }"
+								var="testMethodTypeDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ testMethodTypeDTO.name }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.testMB.DTO.programmingLanguageDTOs.size() > 0 }" >
+			<h:outputLabel value="Programming Languages:" styleClass="fieldFont" />
+			<h:dataTable id="programmingLanguagesTestTable"
+								value="#{ assetMB.testMB.DTO.programmingLanguageDTOs }"
+								var="programmingLanguageDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ programmingLanguageDTO.name }" />
+					<h:outputText value=": #{ assetMB.testMB.DTO.otherProgrammingLanguage }"
+										rendered="#{ programmingLanguageDTO.name == 'Other' }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1"
+						rendered="#{ assetMB.testMB.DTO.designPatternDTOs.size() > 0 }" >
+			<h:outputLabel value="Design Patterns:" styleClass="fieldFont" />
+			<h:dataTable id="designPatternsTestTable"
+								value="#{ assetMB.testMB.DTO.designPatternDTOs }"
+								var="designPatternDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+			    				rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<h:outputText value="#{ designPatternDTO.name }" />
+				</h:column>
+			</h:dataTable>
+			<p/>
+		</h:panelGrid>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.testMB.DTO.sourceCodeDTOs }" />
+			<ui:param name="artifactType" value="SOURCE_CODE" />
+		</ui:include>
+		
+		<ui:include src="./artifactList.xhtml">
+			<ui:param name="artifactList" value="#{ assetMB.testMB.DTO.artifactDTOs }" />
+			<ui:param name="artifactType" value="GENERAL" />
+		</ui:include>
+		
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{ assetMB.relatedAssetsMB.DTO.relatedAssets.size() > 0 }" >
+		<hr />
+		<p/>
+		<h:outputLabel value="Related Assets" styleClass="pageSubtitle" />
+		<p/>
+		
+		<h:outputLabel value="Related Assets:" styleClass="fieldFont" />
+		<h:dataTable value="#{ assetMB.relatedAssetsMB.DTO.relatedAssets }"
+						var="relatedAssetDTO"
+						styleClass="datatablelarge"
+		    			headerClass="datatableHeader"
+		    			rowClasses="datatableOddRow,datatableEvenRow" >
+	
+			<h:column>
+				<f:facet name="header">
+					<h:panelGrid columns="1">
+						<h:outputText value="ID" />
+					</h:panelGrid>
+				</f:facet>
+				<h:outputText value="#{ relatedAssetDTO.id }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{ relatedAssetDTO.name }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Version" />
+				</f:facet>
+				<h:outputText value="#{ relatedAssetDTO.version }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Reference(URI)" />
+				</f:facet>
+				<h:outputText value="#{ relatedAssetDTO.reference }" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Type" />
+				</f:facet>
+				<h:outputText value="#{ relatedAssetDTO.relatedAssetTypeDTO.name }" />
+			</h:column>
+			
+		</h:dataTable>
+	</h:panelGroup>
+	
+	
+	<hr />
+	<p/>
+	<h:outputLabel value="Usage" styleClass="pageSubtitle" />
+	
+	<p/>
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Description:" styleClass="fieldFont" />
+		<h:outputText value="#{ assetMB.usageMB.DTO.description }" styleClass="preformatted" />
+	</h:panelGrid>
+	
+	<ui:include src="./artifactList.xhtml">
+		<ui:param name="artifactList" value="#{ assetMB.usageMB.DTO.artifactDTOs }" />
+		<ui:param name="artifactType" value="GENERAL" />
+		<ui:param name="artifactMB" value="#{ assetMB.usageMB.artifactMB }" />
+		<ui:param name="showDownload" value="true" />
+	</ui:include>
+	
+	<p/>
+	<h:outputLabel value="Authorship" styleClass="pageSubSubtitle" />
+	<p/>
+	
+	<h:outputText value="Publisher:" styleClass="fieldFont" />
+	<a onclick="Richfaces.showModalPanel('authorModalPanelID', {width:'350px', height:'175px'}); return false;"
+			href="#"
+			style="font-weight: bold;">#{ assetMB.usageMB.DTO.authorUserDTO.name }</a>
+	<rich:modalPanel id="authorModalPanelID">
+		<f:facet name="header">
+			<h:outputText value="Author User Information (F1)" />
+		</f:facet>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="ID:" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.authorUserDTO.username }" />
+			<h:outputLabel value="Name:" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.authorUserDTO.name }" />
+			<h:outputLabel value="E-mail:" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.authorUserDTO.email }" />
+			<h:outputLabel value="Is Certifier:" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.authorUserDTO.isCertifier ? 'Yes' : 'No' }" />
+			<h:outputLabel value="Is Manager:" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.authorUserDTO.isManager  ? 'Yes' : 'No' }" />
+		</h:panelGrid>
+		<br/>
+		<br/>
+		<center>
+			<h:commandButton value="Close"
+								onclick="Richfaces.hideModalPanel('authorModalPanelID'); return false;"
+								title="Tip: Press Esc to close."/>
+		</center>
+	</rich:modalPanel>
+	
+	<h:panelGroup rendered="#{ assetMB.usageMB.DTO.certifierUserDTO != null }" >
+		<p/>
+		<h:outputLabel value="Certification" styleClass="pageSubSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="2" columnClasses="rightColumn,none" >
+			<h:outputText value="Certifier:" styleClass="fieldFont" />
+			<a onclick="Richfaces.showModalPanel('certifierModalPanelID', {width:'350px', height:'175px'}); return false;"
+				href="#"
+				style="font-weight: bold;">#{ assetMB.usageMB.DTO.certifierUserDTO.name }</a>
+			<h:outputLabel value="Certification Date:" styleClass="fieldFont" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.strCertificationDate }" />
+		</h:panelGrid>
+		
+		<rich:modalPanel id="certifierModalPanelID">
+			<f:facet name="header">
+				<h:outputText value="Certifier User Information (F1)" />
+			</f:facet>
+			<h:panelGrid columns="2" >
+				<h:outputLabel value="ID:" />
+				<h:outputText value="#{ assetMB.usageMB.DTO.certifierUserDTO.username }" />
+				<h:outputLabel value="Name:" />
+				<h:outputText value="#{ assetMB.usageMB.DTO.certifierUserDTO.name }" />
+				<h:outputLabel value="E-mail:" />
+				<h:outputText value="#{ assetMB.usageMB.DTO.certifierUserDTO.email }" />
+				<h:outputLabel value="Is Certifier:" />
+				<h:outputText value="#{ assetMB.usageMB.DTO.certifierUserDTO.isCertifier ? 'Yes' : 'No' }" />
+				<h:outputLabel value="Is Manager:" />
+				<h:outputText value="#{ assetMB.usageMB.DTO.certifierUserDTO.isManager  ? 'Yes' : 'No' }" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<center>
+				<h:commandButton value="Close"
+									onclick="Richfaces.hideModalPanel('certifierModalPanelID'); return false;"
+									title="Tip: Press Esc to close."/>
+			</center>
+		</rich:modalPanel>
+			
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{ assetMB.usageMB.DTO.adjustmentDTOs.size() > 0 }" >
+		<p/>
+		<h:outputLabel value="Adjustments" styleClass="pageSubSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="3" >
+			<h:outputLabel value="Adjustments Descriptions:" styleClass="fieldFont" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.adjustmentDTOs.size() }" />
+			<a onclick="Richfaces.showModalPanel('adjustmentsModalPanelID', {width:'800px', height:'600px'}); return false;"
+					href="#"
+					style="font-weight: bold;">View all</a>
+		</h:panelGrid>
+		
+		<rich:modalPanel id="adjustmentsModalPanelID" >
+			<f:facet name="header">
+				<h:outputText value="Adjustments Descriptions" />
+			</f:facet>
+			<p/>
+			<center style="width:100%;height:580px;overflow:auto;">
+				<h:dataTable value="#{ assetMB.usageMB.DTO.adjustmentDTOs }"
+								var="adjustmentDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Name" />
+					</f:facet>
+					<h:outputText value="#{ adjustmentDTO.adjusterUserDTO.name }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="ID" />
+					</f:facet>
+					<h:outputText value="#{ adjustmentDTO.adjusterUserDTO.username }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Email" />
+					</f:facet>
+					<h:outputText value="#{ adjustmentDTO.adjusterUserDTO.email }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Date" />
+					</f:facet>
+					<h:outputText value="#{ adjustmentDTO.strDate }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Description" />
+					</f:facet>
+					<h:outputText value="#{ adjustmentDTO.description }" />
+				</h:column>
+				
+			</h:dataTable>
+				<br/>
+				<br/>
+				<h:commandButton value="Close"
+									onclick="Richfaces.hideModalPanel('adjustmentsModalPanelID'); return false;"
+									title="Tip: Press Esc to close."/>
+			</center>
+		</rich:modalPanel>
+		
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{ assetMB.usageMB.DTO.consumptionDTOs.size() > 0 }" >
+		<p/>
+		<h:outputLabel value="Consumptions" styleClass="pageSubSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="3" >
+			<h:outputLabel value="Consumptions Descriptions:" styleClass="fieldFont" />
+			<h:outputText value="#{ assetMB.usageMB.DTO.consumptionDTOs.size() }" />
+			<a onclick="Richfaces.showModalPanel('consumptionsModalPanelID', {width:'800px', height:'600px'}); return false;"
+					href="#"
+					style="font-weight: bold;">View all</a>
+		</h:panelGrid>
+		
+		<rich:modalPanel id="consumptionsModalPanelID" >
+			<f:facet name="header">
+				<h:outputText value="Consumptions Descriptions" />
+			</f:facet>
+			<p/>
+			<center style="width:100%;height:580px;overflow:auto;">
+				<h:dataTable value="#{ assetMB.usageMB.DTO.consumptionDTOs }"
+									var="consumptionDTO"
+									styleClass="datatablelargeMore"
+					    			headerClass="datatableHeader"
+					    			rowClasses="datatableOddRow,datatableEvenRow" >
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Date" />
+						</f:facet>
+						<h:outputText value="#{ consumptionDTO.strDate }" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Name" />
+						</f:facet>
+						<h:outputText value="#{ consumptionDTO.consumerUserDTO.name }" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="ID" />
+						</f:facet>
+						<h:outputText value="#{ consumptionDTO.consumerUserDTO.username }" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputLabel value="Email" />
+						</f:facet>
+						<h:outputText value="#{ consumptionDTO.consumerUserDTO.email }" />
+					</h:column>
+					
+				</h:dataTable>
+				<br/>
+				<br/>
+				<h:commandButton value="Close"
+									onclick="Richfaces.hideModalPanel('consumptionsModalPanelID'); return false;"
+									title="Tip: Press Esc to close."/>
+			</center>
+		</rich:modalPanel>
+		
+	</h:panelGroup>
+		
+	<h:panelGroup rendered="#{ assetMB.asset.feedbackList.size() > 0 }">
+		<p/>
+		<h:outputLabel value="Quality Feedbacks" styleClass="pageSubSubtitle" />
+		<p/>
+		
+		<h:panelGrid columns="3" >
+			<h:outputLabel value="Quality Feedbacks:" styleClass="fieldFont" />
+			<h:outputText value="#{ assetMB.asset.feedbackList.size() }" />
+			<a onclick="Richfaces.showModalPanel('feedbacksModalPanelID', {width:'800px', height:'600px'}); return false;"
+					href="#"
+					style="font-weight: bold;">View all</a>
+		</h:panelGrid>
+		
+		<rich:modalPanel id="feedbacksModalPanelID" >
+			<f:facet name="header">
+				<h:outputText value="Quality Feedbacks" />
+			</f:facet>
+			<p/>
+			<center style="width:100%;height:580px;overflow:auto;">
+				<h:dataTable value="#{ assetMB.asset.feedbackList }"
+								var="feedbackDTO"
+								styleClass="datatablelarge"
+				    			headerClass="datatableHeader"
+				    			rowClasses="datatableOddRow,datatableEvenRow" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Date" />
+					</f:facet>
+					<h:outputText value="#{ feedbackDTO.strDate }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="General Score" />
+					</f:facet>
+					<h:outputText value="#{ feedbackDTO.generalScore }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Name" />
+					</f:facet>
+					<h:outputText value="#{ feedbackDTO.feedbackUserDTO.name }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="ID" />
+					</f:facet>
+					<h:outputText value="#{ feedbackDTO.feedbackUserDTO.username }" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Email" />
+					</f:facet>
+					<h:outputText value="#{ feedbackDTO.feedbackUserDTO.email }" />
+				</h:column>
+				
+			</h:dataTable>
+				<br/>
+				<br/>
+				<h:commandButton value="Close"
+									onclick="Richfaces.hideModalPanel('feedbacksModalPanelID'); return false;"
+									title="Tip: Press Esc to close."/>
+			</center>
+		</rich:modalPanel>
+	</h:panelGroup>
+	
+	<hr />
+	<p/>
+	
+	<h:panelGroup id="userCommentsPanel" >
+		<h:outputText value="No User Comments."
+							rendered="#{ assetMB.usageMB.DTO.userCommentDTOs.size() == 0 }" />
+		<h:outputText value="#{ assetMB.usageMB.DTO.userCommentDTOs.size() } User Comment(s):"
+							rendered="#{ assetMB.usageMB.DTO.userCommentDTOs.size() > 0 }" />
+		<p/>
+		<rich:dataTable value="#{ assetMB.usageMB.DTO.userCommentDTOs }"
+								var="userCommentDTO"
+								rendered="#{ assetMB.usageMB.DTO.userCommentDTOs.size() > 0 }"
+								styleClass="datatablelarge" >
+		
+			<rich:column width="10%">
+				<f:facet name="header">
+					<h:outputLabel value="Date" />
+				</f:facet>
+				<h:outputText value="#{ userCommentDTO.strDate }" />
+			</rich:column>
+			
+			<rich:column width="10%">
+				<f:facet name="header">
+					<h:outputLabel value="User" />
+				</f:facet>
+				<h:outputText value="#{ userCommentDTO.userDTO }" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Comment" />
+				</f:facet>
+				<h:outputText value="#{ userCommentDTO.comment }" />
+			</rich:column>
+			
+		</rich:dataTable>
+		
+		<h:panelGrid columns="2">
+			<h:panelGrid columns="1">
+				<h:outputLabel value="Add Comment:" styleClass="largeFont" />
+				<h:inputTextarea id="userCommentID"
+										value="#{ assetMB.usageMB.userCommentAux }"
+										rows="3"
+										cols="80"
+										onfocus="return openUserLoginPanel();" >
+					<f:converter converterId="StringTrimConverter" />
+					<f:validateLength maximum="255" />
+				</h:inputTextarea>
+				<h:message for="userCommentID" styleClass="errorTextClass" />
+			</h:panelGrid>
+			<a4j:commandButton value="Add Comment"
+										action="#{ assetMB.usageMB.addUserComment }"
+										reRender="userCommentsPanel" >
+			</a4j:commandButton>
+		</h:panelGrid>
+	</h:panelGroup>
+	
+	<p/>
+
+</h:panelGroup>
+
+<h:panelGrid columns="1"
+				rendered="#{ ! assetMB.isValidAsset }">
+	<h:outputText value="Asset not found with the search: #{ request.queryString }" styleClass="boldFont" />
+	<h:panelGroup>
+		<h:outputText value="You can find assets in: " styleClass="boldFont" />
+		<h:commandLink action="#{ simpleSearchMB.newSearch }" immediate="true" >
+			<h:outputText value="Search Assets" />
+	 	</h:commandLink>
+	 </h:panelGroup>
+ </h:panelGrid>
+	
+</ui:define>
+</ui:composition>
+
+</html>

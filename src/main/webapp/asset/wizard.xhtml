@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="5" >
+	
+		<h:commandLink action="#{ assetMB.openAsset }"
+								immediate="true"
+								rendered="#{ ! assetMB.wizardMB.canBack and assetMB.asset.assetPk != null }"
+								onclick="if( ! confirm('The asset edition will not be saved. Confirm?') ) { return false; }" >
+			<h:outputText value="Cancel" styleClass="boldFont" />
+			<f:param name="assetPkToOpen"
+						value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+		<h:commandLink action="#{ assetMB.openAsset }"
+								immediate="true"
+								rendered="#{ ! assetMB.wizardMB.canBack and assetMB.asset.assetPk != null }"
+								onclick="if( ! confirm('The asset edition will not be saved. Confirm?') ) { return false; }" >
+			<h:graphicImage value="/images/back.png" title="back" />
+			<f:param name="assetPkToOpen"
+						value="#{ assetMB.asset.assetPk }" />
+		</h:commandLink>
+		
+		<h:commandLink action="#{ mainMB.openMain }"
+								immediate="true"
+								rendered="#{ ! assetMB.wizardMB.canBack and assetMB.asset.assetPk == null }"
+								onclick="if( ! confirm('Are you sure to cancel?') ) { return false; }" >
+			<h:outputText value="Cancel" styleClass="boldFont" />
+		</h:commandLink>
+		<h:commandLink action="#{ mainMB.openMain }"
+								immediate="true"
+								rendered="#{ ! assetMB.wizardMB.canBack and assetMB.asset.assetPk == null }"
+								onclick="if( ! confirm('Are you sure to cancel?') ) { return false; }" >
+			<h:graphicImage value="/images/back.png" title="back" />
+		</h:commandLink>
+	
+		<h:commandLink id="backCommandLinkID"
+								action="#{ assetMB.wizardMB.back }"
+								title="Tip: Press Alt+Left to Back."
+								rendered="#{ assetMB.wizardMB.canBack }" >
+			<h:outputText value="Back"
+									styleClass="boldFont" />
+		</h:commandLink>
+		<h:commandLink action="#{ assetMB.wizardMB.back }"
+								title="Tip: Press Alt+Left to Back."
+								rendered="#{ assetMB.wizardMB.canBack }" >
+			<h:graphicImage value="/images/back.png"
+									title="Tip: Press Alt+Left to Back." />
+		</h:commandLink>
+		
+		<h:commandLink action="#{ assetMB.wizardMB.next }"
+								title="Tip: Press Alt+Right to Next."
+								rendered="#{ assetMB.wizardMB.canNext }" >
+			<h:graphicImage value="/images/next.png"
+									title="Tip: Press Alt+Right to Next." />
+		</h:commandLink>
+		<h:commandLink id="nextCommandLinkID"
+								action="#{ assetMB.wizardMB.next }"
+								title="Tip: Press Alt+Right to Next."
+								rendered="#{ assetMB.wizardMB.canNext }" >
+			<h:outputText value="Next"
+									styleClass="boldLargeFont" />
+		</h:commandLink>
+		
+		<h:outputLabel value="#{ assetMB.wizardMB.validationMessage }"
+								styleClass="errorTextClass" />
+	</h:panelGrid>
+	
+	<rich:hotKey key="alt+left" handler="document.getElementById('backCommandLinkID').click();"/>
+	<rich:hotKey key="alt+right" handler="document.getElementById('nextCommandLinkID').click();"/>
+	
+</html>

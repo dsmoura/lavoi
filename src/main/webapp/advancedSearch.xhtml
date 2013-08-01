@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Advanced Search</ui:define>
+<ui:define name="content">
+
+	<p/>
+	<h:panelGrid columns="1">
+		<h:outputLabel value="Advanced Search"
+								styleClass="pageTitle" />
+		<h:outputLabel value="Advanced text-based search of any metadata of the published assets in the repository."
+								styleClass="helpFont" />
+	</h:panelGrid>
+	<p/>
+	
+	<p/>
+	
+	<h:panelGrid columns="2"
+						columnClasses="alignTopColumn,alignTopColumn"
+						onkeypress="if (event.keyCode == 13) { document.getElementById('advancedSearchButtonID').click(); return false; }" >
+		
+		<h:panelGrid columns="2"
+							columnClasses="rightColumn,none" >
+							
+			<h:outputLabel value="Asset" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Name:"
+									styleClass="boldFont" />
+			<h:inputText id="nameID"
+								value="#{ advancedSearchMB.asset.name }"
+								size="40" />
+			
+			<h:outputLabel value="ID:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.asset.id }"
+								size="40" />
+			
+			<h:outputLabel value="Version:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.asset.version }"
+								size="40" />
+			
+			<h:outputLabel value="State:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.asset.state }" >
+				<f:selectItems value="#{ listMB.assetStateTypeListUnblocked }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputText value="Usage" styleClass="largeFont" />
+			<h:outputText value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Author's Username:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.asset.usage.authorUserDTO.username }"
+								size="40" />
+								
+			<h:outputLabel value="Certifier's Username:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.asset.usage.certifierUserDTO.username }"
+								size="40" />
+			
+			<h:outputLabel value="Consumer's Username:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.consumerUserDTOAux.username }"
+								size="40" />					
+			
+			<h:outputText value="Classification" styleClass="largeFont" />
+			<h:outputText value=" " styleClass="boldFont" />
+							
+			<h:outputText value="Application Domain:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.applicationDomainAux }" >
+				<f:selectItems value="#{ listMB.applicationDomainList }" />
+				<f:converter converterId="JavaBeanConverter" />
+				<a4j:support event="onchange" reRender="applicationSubdomainID" />
+			</h:selectOneMenu>
+			 
+			<h:outputLabel value="Application Subdomain:" styleClass="boldFont" />
+			<h:selectOneMenu id="applicationSubdomainID"
+									value="#{ advancedSearchMB.applicationSubdomainAux }" >
+				<f:selectItems value="#{ advancedSearchMB.applicationSubdomainList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputText value="Organization:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.organizationDTOAux }" >
+				<f:selectItems value="#{ listMB.organizationDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+				<a4j:support event="onchange"	reRender="projectID" />
+			</h:selectOneMenu>
+			 
+			<h:outputLabel value="Project:" styleClass="boldFont" />
+			<h:selectOneMenu id="projectID"
+									value="#{ advancedSearchMB.projectDTOAux }" >
+				<f:selectItems value="#{ advancedSearchMB.projectDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Related Assets" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="ID:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.relatedAssetAux.id }"
+								size="40" />
+								
+			<h:outputLabel value="Name:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.relatedAssetAux.name }"
+								size="40" />
+			
+			<h:outputLabel value="Version:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.relatedAssetAux.version }"
+								size="40" />
+								
+			<h:outputLabel value="Relationship Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.relatedAssetAux.relatedAssetTypeDTO }" >
+				<f:selectItems value="#{ listMB.relatedAssetTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2"
+							columnClasses="rightColumn,none" >
+			
+			<h:outputLabel value="Requirements" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Functional Requirements Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.functionalRequirementDTOAux }" >
+				<f:selectItems value="#{ listMB.functionalRequirementTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Non-Functional Requirements Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.nonFunctionalRequirementDTOAux }" >
+				<f:selectItems value="#{ listMB.nonFunctionalRequirementTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Internationalization Language:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.internationalizationTypeDTOAux }" >
+				<f:selectItems value="#{ listMB.internationalizationTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Operational System:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.operationalSystemTypeDTOAux }" >
+				<f:selectItems value="#{ listMB.operationalSystemTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Analysis / Project" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Interface Specification Name:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.interfaceSpecDTOAUx.name }"
+										size="40" />
+										
+			<h:outputLabel value="Operation Name:" styleClass="boldFont" />
+			<h:inputText value="#{ advancedSearchMB.operationDTOAux.name }"
+										size="40" />
+			
+			<h:outputLabel value="Test" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Test Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.testTypeDTOAux }" >
+				<f:selectItems value="#{ listMB.testTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Test Method Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.testMethodTypeDTOAux }" >
+				<f:selectItems value="#{ listMB.testMethodTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Common in Artifacts" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Source Code Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.sourceCodeDTOAux }" >
+				<f:selectItems value="#{ listMB.sourceCodeTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="User Interface Type:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.userInterfaceDTOAux }" >
+				<f:selectItems value="#{ listMB.userInterfaceTypeDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Common" styleClass="largeFont" />
+			<h:outputLabel value=" " styleClass="boldFont" />
+			
+			<h:outputLabel value="Design Pattern:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.designPatternDTOAux }" >
+				<f:selectItems value="#{ listMB.designPatternDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Programming Language:" styleClass="boldFont" />
+			<h:selectOneMenu value="#{ advancedSearchMB.programmingLanguageDTOAux }" >
+				<f:selectItems value="#{ listMB.programmingLanguageDTOList }" />
+				<f:converter converterId="JavaBeanConverter" />
+			</h:selectOneMenu>
+		
+		</h:panelGrid>
+		
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:panelGrid columns="2">
+		<h:commandButton id="advancedSearchButtonID"
+								value="Search"
+								action="#{ advancedSearchMB.advancedSearch }" />
+		<h:commandLink value=" Simple Search"
+								action="#{ simpleSearchMB.newSearch }"
+							 	immediate="true" />
+	</h:panelGrid>
+	<h:message for="termToSearchID" styleClass="errorTextClass" />
+	<h:inputHidden id="termToSearchID" />
+	
+	<p/>
+	
+	<h:panelGroup rendered="#{ advancedSearchMB.hasSearched }">
+		<hr/>
+		<ui:include src="./resultAssets.xhtml" >
+			<ui:param name="searchManagedBean" value="#{ advancedSearchMB }"/>
+			<ui:param name="assetsList" value="#{ advancedSearchMB.assetResultList }"/>
+			<ui:param name="searchType" value="SEARCHING"/>
+			<ui:param name="hasPagination" value="true"/>
+		</ui:include>
+	</h:panelGroup>
+	
+	<script>
+		document.getElementById('nameID').focus();
+	</script>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

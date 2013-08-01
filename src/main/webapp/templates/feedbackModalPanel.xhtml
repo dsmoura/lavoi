@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<rich:modalPanel id="feedbackModalPanel">
+		<f:facet name="header">
+			<h:outputText value="Send Feedback Message" />
+		</f:facet>
+		<center>
+			<a4j:form prependId="false">
+				<h:panelGrid columns="1">
+					<h:outputLabel value="Feedback Message:" styleClass="largeFont" />
+					<h:outputText value="Send a message with suggestions, opinions, problems or issues about the repository"
+										styleClass="helpFont" />
+					<h:inputTextarea id="messageFeedbackID"
+										value="#{ mainMB.feedbackMessage }"
+										rows="5"
+										cols="60" >
+					</h:inputTextarea>
+					<h:message for="messageFeedbackID" styleClass="errorTextClass" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<a4j:commandButton value="Send Message"
+												action="#{ mainMB.sendFeedbackMessage }"
+												reRender="messageFeedbackID"
+												onclick="if(document.getElementById('messageFeedbackID').value.replace(/^\s+|\s+$/g,'') == '') { alert('Enter the message.'); return false; }"
+												oncomplete="alert('Thanks for your feedback!'); Richfaces.hideModalPanel('feedbackModalPanel'); return false;"
+												styleClass="largeButton" >
+					</a4j:commandButton>
+					<h:commandButton value="Cancel"
+										onclick="Richfaces.hideModalPanel('feedbackModalPanel'); return false;"
+										title="Tip: Press Esc to close."/>
+				</h:panelGrid>
+			</a4j:form>
+			
+		</center>
+	</rich:modalPanel>
+	
+</html>

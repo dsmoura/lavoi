@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Asset Evaluation</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Asset Evaluation"
+							styleClass="pageTitle" />
+	<p/>
+	
+	<h:panelGroup>
+		<h:outputLabel value="These scores are based on "
+									styleClass="helpFont" />
+		<h:outputLink value="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=35733"
+							target="_blank" >
+			<h:outputText value="ISO 25010"/>
+		</h:outputLink>
+		<h:outputLabel value=" quality models: Quality In Use Model and Product Quality Model."
+									styleClass="helpFont" />
+	</h:panelGroup>
+	
+	<p/>
+	
+	<ui:include src="assetHeader.xhtml">
+		<ui:param name="asset" value="#{ feedbackMB.assetToFeedback }" />
+	</ui:include>
+	
+	<p/>
+	
+	<h:panelGrid columns="4">
+		<h:outputLabel value="* General Quality:" styleClass="fieldFont" />
+		<h:selectOneRadio id="generalID"
+									value="#{ feedbackMB.feedbackDTO.generalScore }"
+									required="true"
+									requiredMessage="Enter this score."
+									styleClass="noSpacesSolidLineClass" >
+			<f:selectItems value="#{ listMB.qualityScoresList }" />
+			<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+		</h:selectOneRadio>
+		<h:message for="generalID"
+						styleClass="errorTextClass" />
+		<h:outputLabel value="General judgment about the quality of the asset."
+								styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+		
+	<h:panelGrid columns="2"
+						columnClasses="alignTopColumn,alignTopColumn" >
+	
+		<h:panelGroup>
+			<h:panelGrid columns="1">
+				<h:outputLabel value="#{ feedbackMB.isFeedbackOnConsumption ? '*' : '' } Quality In Use:" styleClass="pageSubSubtitle" />
+				<h:outputLabel value="It's mandatory on consumption" styleClass="helpLargeFont" />
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Effectiveness:" styleClass="fieldFont" />
+				<h:selectOneRadio id="effectivenessID"
+											value="#{ feedbackMB.feedbackDTO.qualityInUseDTO.effectivenessScore }"
+											required="#{ feedbackMB.isQualityInUseMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="effectivenessID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Accuracy and completeness to achieve specified goals"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Efficiency:" styleClass="fieldFont" />
+				<h:selectOneRadio id="efficiencyID"
+											value="#{ feedbackMB.feedbackDTO.qualityInUseDTO.efficiencyScore }"
+											required="#{ feedbackMB.isQualityInUseMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="efficiencyID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Resources expended to achieve specified goals"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Satisfaction:" styleClass="fieldFont" />
+				<h:selectOneRadio id="satisfactionID"
+											value="#{ feedbackMB.feedbackDTO.qualityInUseDTO.satisfactionScore }"
+											required="#{ feedbackMB.isQualityInUseMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="satisfactionID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Usefulness, trust, pleasure, comfort"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Safety:" styleClass="fieldFont" />
+				<h:selectOneRadio id="safetyID"
+											value="#{ feedbackMB.feedbackDTO.qualityInUseDTO.safetyScore }"
+											required="#{ feedbackMB.isQualityInUseMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="safetyID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Mitigation of economic risks, health risks, safety risks and environmental risks"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Context Coverage:" styleClass="fieldFont" />
+				<h:selectOneRadio id="contextCoverageID"
+											value="#{ feedbackMB.feedbackDTO.qualityInUseDTO.contextCoverageScore }"
+											required="#{ feedbackMB.isQualityInUseMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="contextCoverageID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Context completeness, flexibility"
+												styleClass="helpFont" />
+			</h:panelGrid>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+			<h:panelGrid columns="1">
+				<h:outputLabel value="#{ feedbackMB.isFeedbackOnCertification ? '* ' : '' }Software Product Quality:" styleClass="pageSubSubtitle" />
+				<h:outputLabel value="It's mandatory on certification" styleClass="helpLargeFont" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="4">
+			
+				<h:outputLabel value="Functional Suitability:" styleClass="fieldFont" />
+				<h:selectOneRadio id="functionalSuitabilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.functionalSuitabilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="functionalSuitabilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Functional completeness, correctness and appropriateness"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Performance Efficiency:" styleClass="fieldFont" />
+				<h:selectOneRadio id="performanceEfficiencyID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.performanceEfficiencyScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="performanceEfficiencyID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Time behaviour, resource utilization, capacity"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Compatibility:" styleClass="fieldFont" />
+				<h:selectOneRadio id="compatibilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.compatibilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="compatibilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Co-existence, interoperability"
+												styleClass="helpFont" />
+												
+				<h:outputLabel value="Usability:" styleClass="fieldFont" />
+				<h:selectOneRadio id="usabilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.usabilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="usabilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Understandability, Learnability, Operability"
+												styleClass="helpFont" />
+				
+				<h:outputLabel value="Reliability:" styleClass="fieldFont" />
+				<h:selectOneRadio id="reliabilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.reliabilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="reliabilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Appropriateness recognizability, learnability, operability, user error protection, user interface aesthetics, accessibility"
+										styleClass="helpFont" />
+										
+				<h:outputLabel value="Security:" styleClass="fieldFont" />
+				<h:selectOneRadio id="securityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.securityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="securityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Confidentiality, integrity, non-repudiation, accountability, authenticity"
+										styleClass="helpFont" />
+				
+				<h:outputLabel value="Maintainability:" styleClass="fieldFont" />
+				<h:selectOneRadio id="maintabilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.maintainabilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="maintabilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Modularity, reusability, analysability, modifiability, testability"
+												styleClass="helpFont" />
+				
+				<h:outputLabel value="Portability:" styleClass="fieldFont" />
+				<h:selectOneRadio id="portabilityID"
+											value="#{ feedbackMB.feedbackDTO.softwareProductQualityDTO.portabilityScore }"
+											required="#{ feedbackMB.isSoftwareProductQualityMandatory }"
+											requiredMessage="Enter this score."
+											styleClass="noSpacesSolidLineClass" >
+					<f:selectItems value="#{ listMB.qualityScoresList }" />
+					<a4j:support event="onclick" reRender="finalScorePanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<h:message for="portabilityID"
+								styleClass="errorTextClass" />
+				<h:outputLabel value="Adaptability, installability, replaceability"
+												styleClass="helpFont" />
+				
+			</h:panelGrid>
+		</h:panelGroup>
+	
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:panelGrid columns="4">
+		<h:outputLabel value="Comment:" styleClass="fieldFont" />
+		<h:outputLabel value=" " />
+		<h:inputTextarea id="commentID"
+									value="#{ feedbackMB.feedbackDTO.comment }"
+									rows="3"
+									cols="80" />
+		<h:message for="commentID"
+						styleClass="errorTextClass" />
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:panelGrid columns="2" id="finalScorePanel" >
+		<h:outputLabel value="Evaluation Total Score:" styleClass="boldSemiLargeFont" />
+		<h:outputText value="#{ feedbackMB.averageScore }%" styleClass="boldSemiLargeFont" />
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:commandButton action="#{ feedbackMB.saveFeedback }"
+							value="Save Evaluation"
+							styleClass="largeButton" />
+	
+	<h:outputLabel value="The evaluation influences the asset relevance searching."
+									styleClass="helpFont" />
+	
+</ui:define>
+</ui:composition>
+
+</html>

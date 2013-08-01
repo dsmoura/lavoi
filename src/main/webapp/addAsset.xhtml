@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<!-- http://www.welie.com/patterns/showPattern.php?patternID=wizard -->
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">
+	<h:outputText value="Publish Asset"
+						rendered="#{ assetMB.asset.assetPk == null }" />
+	<h:outputText value="Edit Asset"
+						rendered="#{ assetMB.asset.assetPk != null }" />
+</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Publish Asset"
+							rendered="#{ assetMB.asset.assetPk == null }"
+							styleClass="pageTitle" />
+	<h:outputLabel value="Edit Asset"
+							rendered="#{ assetMB.asset.assetPk != null }"
+							styleClass="pageTitle" />
+	<p/>
+	
+	<hr />
+
+	<!-- 	http://www.eclipse.org/articles/Article-UI-Guidelines/Contents.html#Wizards -->
+
+	<h:commandLink value="#{ assetMB.wizardMB.generalLabel }"
+							action="#{ assetMB.wizardMB.openGeneral }"
+							rendered="#{ assetMB.wizardMB.isGeneralEnabled and (! assetMB.wizardMB.isGeneralOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.generalLabel }"
+							rendered="#{ assetMB.wizardMB.isGeneralEnabled and assetMB.wizardMB.isGeneralOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.generalLabel }"
+							rendered="#{ ! assetMB.wizardMB.isGeneralEnabled }"
+							styleClass="wizardBlocked" />
+		
+		
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+
+	<h:commandLink value="#{ assetMB.wizardMB.classificationLabel }"
+							action="#{ assetMB.wizardMB.openClassification }"
+							rendered="#{ assetMB.wizardMB.isClassificationEnabled and (! assetMB.wizardMB.isClassificationOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.classificationLabel }"
+							rendered="#{ assetMB.wizardMB.isClassificationEnabled and assetMB.wizardMB.isClassificationOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.classificationLabel }"
+							rendered="#{ ! assetMB.wizardMB.isClassificationEnabled }"
+							styleClass="wizardBlocked" />
+
+
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+	<h:commandLink value="#{ assetMB.wizardMB.effortLabel }"
+							action="#{ assetMB.wizardMB.openEffort }"
+							rendered="#{ assetMB.wizardMB.isEffortEnabled and (! assetMB.wizardMB.isEffortOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.effortLabel }"
+							rendered="#{ assetMB.wizardMB.isEffortEnabled and assetMB.wizardMB.isEffortOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.effortLabel }"
+							rendered="#{ ! assetMB.wizardMB.isEffortEnabled }"
+							styleClass="wizardBlocked" />
+
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+	
+	<h:commandLink value="#{ assetMB.wizardMB.requirementsLabel }"
+							action="#{ assetMB.wizardMB.openRequirements }"
+							rendered="#{ assetMB.wizardMB.isRequirementsEnabled and (! assetMB.wizardMB.isRequirementsOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.requirementsLabel }"
+							rendered="#{ assetMB.wizardMB.isRequirementsEnabled and assetMB.wizardMB.isRequirementsOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.requirementsLabel }"
+							rendered="#{ ! assetMB.wizardMB.isRequirementsEnabled }"
+							styleClass="wizardBlocked" />
+	
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+	
+	<h:commandLink value="#{ assetMB.wizardMB.analysisLabel }"
+							action="#{ assetMB.wizardMB.openAnalysis }"
+							rendered="#{ assetMB.wizardMB.isAnalysisEnabled and (! assetMB.wizardMB.isAnalysisOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.analysisLabel }"
+							rendered="#{ assetMB.wizardMB.isAnalysisEnabled and assetMB.wizardMB.isAnalysisOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.analysisLabel }"
+							rendered="#{ ! assetMB.wizardMB.isAnalysisEnabled }"
+							styleClass="wizardBlocked" />
+	
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+	
+	<h:commandLink value="#{ assetMB.wizardMB.designLabel }"
+							action="#{ assetMB.wizardMB.openDesign }"
+							rendered="#{ assetMB.wizardMB.isDesignEnabled and (! assetMB.wizardMB.isDesignOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.designLabel }"
+							rendered="#{ assetMB.wizardMB.isDesignEnabled and assetMB.wizardMB.isDesignOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.designLabel }"
+							rendered="#{ ! assetMB.wizardMB.isDesignEnabled }"
+							styleClass="wizardBlocked" />
+
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+	<h:commandLink value="#{ assetMB.wizardMB.implementationLabel }"
+							action="#{ assetMB.wizardMB.openImplementation }"
+							rendered="#{ assetMB.wizardMB.isImplementationEnabled and (! assetMB.wizardMB.isImplementationOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.implementationLabel }"
+							rendered="#{ assetMB.wizardMB.isImplementationEnabled and assetMB.wizardMB.isImplementationOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.implementationLabel }"
+							rendered="#{ ! assetMB.wizardMB.isImplementationEnabled }"
+							styleClass="wizardBlocked" />
+							
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+	<h:commandLink value="#{ assetMB.wizardMB.testLabel }"
+							action="#{ assetMB.wizardMB.openTest }"
+							rendered="#{ assetMB.wizardMB.isTestEnabled and (! assetMB.wizardMB.isTestOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.testLabel }"
+							rendered="#{ assetMB.wizardMB.isTestEnabled and assetMB.wizardMB.isTestOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.testLabel }"
+							rendered="#{ ! assetMB.wizardMB.isTestEnabled }"
+							styleClass="wizardBlocked" />
+							
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+	<h:commandLink value="#{ assetMB.wizardMB.usageLabel }"
+							action="#{ assetMB.wizardMB.openUsage }"
+							rendered="#{ assetMB.wizardMB.isUsageEnabled and (! assetMB.wizardMB.isUsageOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.usageLabel }"
+							rendered="#{ assetMB.wizardMB.isUsageEnabled and assetMB.wizardMB.isUsageOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.usageLabel }"
+							rendered="#{ ! assetMB.wizardMB.isUsageEnabled }"
+							styleClass="wizardBlocked" />
+							
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+	
+	<h:commandLink value="#{ assetMB.wizardMB.relatedAssetsLabel }"
+							action="#{ assetMB.wizardMB.openRelatedAssets }"
+							rendered="#{ assetMB.wizardMB.isRelatedAssetsEnabled and (! assetMB.wizardMB.isRelatedAssetsOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.relatedAssetsLabel }"
+							rendered="#{ assetMB.wizardMB.isRelatedAssetsEnabled and assetMB.wizardMB.isRelatedAssetsOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.relatedAssetsLabel }"
+							rendered="#{ ! assetMB.wizardMB.isRelatedAssetsEnabled }"
+							styleClass="wizardBlocked" />
+							
+	<h:outputLabel value=" > "	styleClass="wizardSeparator" />
+
+	<h:commandLink value="#{ assetMB.wizardMB.publishLabel }"
+							action="#{ assetMB.wizardMB.openPublish }"
+							rendered="#{ assetMB.wizardMB.isPublishEnabled and (! assetMB.wizardMB.isPublishOpened) }"
+							styleClass="wizardEnabled" />
+							
+	<h:outputLabel value="#{ assetMB.wizardMB.publishLabel }"
+							rendered="#{ assetMB.wizardMB.isPublishEnabled and assetMB.wizardMB.isPublishOpened }"
+							styleClass="wizardOpened" />
+	
+	<h:outputLabel value="#{ assetMB.wizardMB.publishLabel }"
+							rendered="#{ ! assetMB.wizardMB.isPublishEnabled }"
+							styleClass="wizardBlocked" />
+	
+	<p/>
+	<hr />
+	
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isGeneralOpened }">
+		<ui:include src="asset/asset.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isClassificationOpened }">
+		<ui:include src="asset/classification.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isEffortOpened }">
+		<ui:include src="asset/effort.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isRequirementsOpened }">
+		<ui:include src="asset/requirements.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isAnalysisOpened }">
+		<ui:include src="asset/analysis.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isDesignOpened }">
+		<ui:include src="asset/design.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isImplementationOpened }">
+		<ui:include src="asset/implementation.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isTestOpened }">
+		<ui:include src="asset/test.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isUsageOpened }">
+		<ui:include src="asset/usage.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isRelatedAssetsOpened }">
+		<ui:include src="asset/relatedAssets.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{ assetMB.wizardMB.isPublishOpened }">
+		<ui:include src="asset/publish.xhtml" />
+	</h:panelGroup>
+	
+	<p/>
+	
+	<ui:include src="asset/wizard.xhtml" />
+	
+</ui:define>
+</ui:composition>
+	
+</html>

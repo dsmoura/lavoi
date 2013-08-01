@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Asset Removed</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:outputLabel value="Asset Removed"
+							styleClass="pageTitle" />
+	<p/>
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<h:outputText value="The asset was removed from the repository."
+						styleClass="boldLargeFont" />
+	
+	
+	<p/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<h:commandLink action="#{ simpleSearchMB.searchAssetsForCertificationList }"
+						 	immediate="true" >
+	 	<h:graphicImage value="/images/back.png" title="back to assets available for certification" />
+		<h:outputText value="Back to Assets Available for Certification"
+							styleClass="largeFont" />
+	</h:commandLink>
+	
+	<p/>
+	<br/>
+	<h:commandLink action="#{ mainMB.openMain }" immediate="true">
+		<h:graphicImage value="/images/home.png" title="go main page" />
+		<h:outputText value="Go Main Page" styleClass="largeFont" />
+	</h:commandLink>
+	
+	<p/>
+	
+</ui:define>
+</ui:composition>
+	
+</html>

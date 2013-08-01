@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+
+<ui:define name="header" />
+
+<ui:define name="title">Login</ui:define>
+
+<ui:define name="content">
+
+	<h:panelGroup rendered="#{ loginMB.areEmptyLists }" >
+		<p/>
+		<br/>
+		<br/>
+		<h:commandButton value="Load All Lists in Database"
+								action="#{ loginMB.loadAllLists }"
+								immediate="true"
+								styleClass="largeButton" />
+	</h:panelGroup>
+
+	<center>
+	
+		<p/>
+		<br/>
+		<h:panelGrid columns="1" columnClasses="centerColumn" >
+			<h:panelGroup>
+				<h:outputLabel value="Software Reuse Repository" styleClass="pageTitle" />
+				<h:outputLabel value="Beta" styleClass="alignTopBold" />
+			</h:panelGroup>
+			<h:outputLabel value="#{ listMB.repositorySubtitle }" styleClass="pageSubSubtitle" />
+		</h:panelGrid>
+		<p/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+		
+		<br/>
+		<br/>
+	
+		<h:panelGroup rendered="#{ ! loginMB.areEmptyLists }" >
+		
+			<p/>
+			<h:panelGrid columns="1" columnClasses="centerColumn" >
+				<h:outputLabel value="Login" styleClass="pageTitle" />
+			</h:panelGrid>
+			<p/>
+			<br/>
+			<br/>
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Email:"
+								styleClass="boldFont"
+								rendered="#{ loginMB.isDatabaseUserAuthentication }" />
+				<h:panelGrid columns="1"
+								rendered="#{ loginMB.isDatabaseUserAuthentication }">
+					<h:inputText id="emailID"
+										value="#{ loginMB.userForLoginDTO.email }"
+										required="true"
+										requiredMessage="Enter the Email."
+										size="60" >
+						<f:converter converterId="StringTrimConverter" />
+						<f:validator validatorId="EmailValidator" />
+						<a4j:support event="onblur"
+											action="#{ loginMB.searchEmail }"
+											reRender="passwordLabelID,newPasswordPanelID,codePanelID"
+											ajaxSingle="true" />
+					</h:inputText>
+					<h:message for="emailID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				
+				<h:outputLabel value="Username:"
+								styleClass="boldFont"
+								rendered="#{ loginMB.isLDAPUserAuthentication }" />
+				<h:panelGrid columns="1"
+								rendered="#{ loginMB.isLDAPUserAuthentication }">
+					<h:inputText id="usernameID"
+										value="#{ loginMB.userForLoginDTO.username }"
+										required="true"
+										requiredMessage="Enter the Username."
+										size="60" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:message for="usernameID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				
+				<h:outputLabel id="passwordLabelID"
+										value="#{ loginMB.userForLoginDTO.isChangingPassword ? 'Temporary ' : '' }Password:"
+										styleClass="boldFont" />
+				<h:panelGrid columns="1">
+					<h:inputSecret id="passwordID"
+										value="#{ loginMB.userForLoginDTO.password }"
+										required="true"
+										requiredMessage="Enter the Password."
+										size="40" />
+					<h:message for="passwordID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				
+			</h:panelGrid>
+			
+			<h:panelGrid id="newPasswordPanelID"
+									columns="2"
+									rendered="#{ loginMB.isDatabaseUserAuthentication }" >
+				<h:outputLabel value="New Password:"
+										styleClass="boldFont"
+										rendered="#{ loginMB.userForLoginDTO.isChangingPassword }" />
+				<h:panelGrid columns="1"
+									rendered="#{ loginMB.userForLoginDTO.isChangingPassword }" >
+					<h:inputSecret id="newPasswordID"
+										value="#{ loginMB.userForLoginDTO.newPassword }"
+										required="true"
+										requiredMessage="Enter the New Password."
+										size="40" />
+					<h:message for="newPasswordID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				<h:outputLabel value="Confirm New Password:"
+										styleClass="boldFont"
+										rendered="#{ loginMB.userForLoginDTO.isChangingPassword }" />
+				<h:panelGrid columns="1"
+									rendered="#{ loginMB.userForLoginDTO.isChangingPassword }" >
+					<h:inputSecret id="confirmNewPasswordID"
+										value="#{ loginMB.userForLoginDTO.confirmPassword }"
+										required="true"
+										requiredMessage="Confirm the New Password."
+										size="40" />
+					<h:message for="confirmNewPasswordID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<h:panelGrid id="codePanelID"
+									columns="2"
+									rendered="#{ loginMB.isDatabaseUserAuthentication }" >
+				<h:outputLabel value="Registration Code:"
+										styleClass="boldFont"
+										rendered="#{ loginMB.userForLoginDTO.isFirstLogin }" />
+				<h:panelGrid columns="1"
+									rendered="#{ loginMB.userForLoginDTO.isFirstLogin }" >
+					<h:inputText id="codeID"
+										value="#{ loginMB.userForLoginDTO.firstLoginCode }"
+										required="true"
+										requiredMessage="Enter the Code"
+										size="20" >
+						<f:converter converterId="StringTrimConverter" />
+					</h:inputText>
+					<h:message for="codeID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="3" cellpadding="20px" >
+				<h:commandButton value="Login"
+										action="#{ loginMB.validateLoginDatabase }"
+										styleClass="largeButton"
+										rendered="#{ loginMB.isDatabaseUserAuthentication }" />
+				
+				<h:commandButton value="Login"
+										action="#{ loginMB.validateLoginLDAP }"
+										styleClass="largeButton"
+										rendered="#{ loginMB.isLDAPUserAuthentication }" />
+				
+				<h:panelGrid columns="1" cellpadding="5px" rendered="#{ loginMB.isDatabaseUserAuthentication }" >
+					<h:commandLink value="Register Login"
+											action="#{ loginMB.openRegisterLogin }"
+											immediate="true"
+											styleClass="boldMiddleFont" />
+											
+					<h:commandLink value="Reset Password"
+											action="#{ loginMB.changePassword }"
+											onclick="if( ! confirm('Do you confirm to reset the password?') ) { return false; }"
+											immediate="true"
+											styleClass="boldMiddleFont" />
+					
+					<h:commandLink value="Resend Registration Code"
+											action="#{ loginMB.resendRegistrationCode }"
+											immediate="true"
+											styleClass="boldMiddleFont" />
+				</h:panelGrid>
+				
+				<h:commandLink value="Go to Main"
+							 action="#{ mainMB.openMain }"
+							 immediate="true"
+							 styleClass="boldMiddleFont" />
+			</h:panelGrid>
+			
+		</h:panelGroup>
+		
+		<p/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+		
+	</center>
+	
+	<h:panelGroup rendered="#{ loginMB.isDatabaseUserAuthentication }">
+		<script>
+			document.getElementById('emailID').focus();
+		</script>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{ loginMB.isLDAPUserAuthentication }">
+		<script>
+			document.getElementById('usernameID').focus();
+		</script>
+	</h:panelGroup>
+	
+</ui:define>
+</ui:composition>
+</html>

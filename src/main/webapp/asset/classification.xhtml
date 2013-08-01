@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<!-- Tags	 -->
+<!-- http://www.welie.com/patterns/showPattern.php?patternID=tag-cloud -->
+<!-- 	http://www.amazon.com/gp/tagging/cloud -->
+<!-- http://code.google.com/hosting/search?q=label:Java -->
+
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.classificationLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="How the asset is classified"
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:panelGrid columns="2">
+		<h:outputLabel value="* Tags:"
+								styleClass="fieldFont" />
+		<h:outputLabel value="Separate Tags with Commas, example: tag1, tag2, tag3. Enter at least two tags."
+								styleClass="helpFont" />
+	</h:panelGrid>
+	<h:inputTextarea id="tagsID"
+							value="#{ assetMB.classificationMB.tags }"
+							cols="80" >
+		<a4j:support event="onblur" reRender="tagsID" />
+	</h:inputTextarea>
+	<h:outputLabel value="These tags build the Assets Tag Cloud."
+									styleClass="helpFont" />
+	
+	<p/>
+
+	<h:panelGrid columns="2" rendered="false" >
+		<h:outputLabel value="Application Domains:" styleClass="fieldFont" />
+		<h:outputLabel value="Add multiple Domains and Subdomains"
+								styleClass="helpFont" />
+	</h:panelGrid>
+	<h:dataTable id="applicationSubdomainTable"
+						value="#{ assetMB.classificationMB.DTO.applicationSubdomains }"
+						var="applicationSubdomain"
+						styleClass="datatable"
+		    			headerClass="datatableHeader"
+		    			rowClasses="datatableOddRow,datatableEvenRow"
+		    			rendered="false" >
+
+			<h:column>
+			
+				<f:facet name="header">
+					<h:panelGrid columns="1">
+						<h:outputText value="Domain" />
+						<h:selectOneMenu value="#{ assetMB.classificationMB.applicationDomainAux }" >
+							<f:selectItems value="#{ listMB.applicationDomainList }" />
+							<f:converter converterId="JavaBeanConverter" />
+							<a4j:support event="onchange"
+												reRender="applicationSubdomainTable" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+				</f:facet>
+				
+				<h:outputText value="#{ applicationSubdomain.applicationDomain.name} " />
+				<h:panelGrid columns="1"
+									rendered="#{ applicationSubdomain.applicationDomain.name == 'Other' }" >
+					<h:inputText id="otherApplicationDomainNameID"
+										value="#{ assetMB.classificationMB.DTO.otherApplicationDomain }"
+										size="40"
+										required="true"
+										requiredMessage="Enter the Other Application Domain." />
+					<h:message for="otherApplicationDomainNameID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				
+			</h:column>
+
+			<h:column>
+			
+				<f:facet name="header">
+					<h:panelGrid columns="1">
+						<h:outputLabel value="Subdomain" />
+						<h:selectOneMenu value="#{ assetMB.classificationMB.applicationSubdomainAux }" >
+							<f:selectItems value="#{ assetMB.classificationMB.applicationSubdomainList }" />
+							<f:converter converterId="JavaBeanConverter" />
+							<a4j:support event="onchange"
+												reRender="applicationSubdomainTable"
+												ajaxSingle="true" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+				</f:facet>
+				
+				<h:outputText value="#{ applicationSubdomain.name }" />
+				<h:panelGrid columns="1"
+									rendered="#{ applicationSubdomain.name == 'Other' }" >
+					<h:inputText id="otherApplicationSubdomainNameID"
+										value="#{ assetMB.classificationMB.DTO.otherApplicationSubdomain }"
+										size="40"
+										required="true"
+										requiredMessage="Enter the Other Application Subdomain." />
+					<h:message for="otherApplicationSubdomainNameID"
+									styleClass="errorTextClass" />
+				</h:panelGrid>
+				
+			</h:column>
+			
+			<h:column>
+			
+				<f:facet name="header">
+					<a4j:commandButton value="Add"
+												action="#{ assetMB.classificationMB.addSubdomain }"
+												reRender="applicationSubdomainTable"
+												ajaxSingle="true" >
+					</a4j:commandButton>
+				</f:facet>
+				
+				<a4j:commandButton value="Remove"
+											action="#{ assetMB.classificationMB.removeSubdomain }"
+											reRender="applicationSubdomainTable"
+											ajaxSingle="true" >
+					<a4j:actionparam name="appSubdomainPkToRemove"
+											value="#{ applicationSubdomain.applicationsubdomainPk }" />
+				</a4j:commandButton>
+				
+			</h:column>
+
+	</h:dataTable>
+	
+	<h:panelGroup rendered="#{ assetMB.classificationMB.DTO.projectDTOs.size() > 0 }" >
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Projects:" styleClass="fieldFont" />
+			<h:outputLabel value="Add multiple Organizations and Projects"
+									styleClass="helpFont" />
+		</h:panelGrid>
+		<h:dataTable id="projectsPanel"
+							value="#{ assetMB.classificationMB.DTO.projectDTOs }"
+							var="projectDTO"
+							styleClass="datatable"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow" >
+	
+				<h:column>
+				
+					<f:facet name="header">
+						<h:panelGrid columns="1">
+							<h:outputText value="Organization" />
+							<h:selectOneMenu value="#{ assetMB.classificationMB.organizationDTOAux }" >
+								<f:selectItems value="#{ listMB.organizationDTOList }" />
+								<f:converter converterId="JavaBeanConverter" />
+								<a4j:support event="onchange"
+													reRender="projectsPanel"
+													ajaxSingle="true" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</f:facet>
+					
+					<h:outputText value="#{ projectDTO.organizationDTO.name } " />
+					
+				</h:column>
+	
+				<h:column>
+				
+					<f:facet name="header">
+						<h:panelGrid columns="1">
+							<h:outputLabel value="Project" />
+							<h:selectOneMenu value="#{ assetMB.classificationMB.projectDTOAux }" >
+								<f:selectItems value="#{ assetMB.classificationMB.projectDTOList }" />
+								<f:converter converterId="JavaBeanConverter" />
+								<a4j:support event="onchange"
+													reRender="projectsPanel"
+													ajaxSingle="true" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</f:facet>
+					
+					<h:outputText value="#{ projectDTO.name }" />
+					
+				</h:column>
+				
+				<h:column>
+				
+					<f:facet name="header">
+						<a4j:commandButton value="Add"
+													action="#{ assetMB.classificationMB.addProject }"
+													reRender="projectsPanel"
+													ajaxSingle="true" >
+						</a4j:commandButton>
+					</f:facet>
+					
+					<a4j:commandButton value="Remove"
+												action="#{ assetMB.classificationMB.removeProject }"
+												reRender="projectsPanel"
+												ajaxSingle="true" >
+						<a4j:actionparam name="projectPkToRemove"
+												value="#{ projectDTO.projectPk }" />
+					</a4j:commandButton>
+					
+				</h:column>
+	
+		</h:dataTable>
+	</h:panelGroup>
+	
+	<p/>
+	
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Descriptors Groups:" styleClass="fieldFont" />
+		<h:outputLabel value="Add multiple Groups and Descriptors about general information"
+								styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<h:panelGroup id="descriptorsGroupsTable">					
+		<a4j:commandButton value="Add..."
+									action="#{ assetMB.classificationMB.addNewDescriptorGroup }"
+									reRender="descriptorsGroupsTable"
+									rendered="#{ assetMB.classificationMB.DTO.descriptorGroupDTOs.size() == 0 }" >
+		</a4j:commandButton>
+		<h:dataTable value="#{ assetMB.classificationMB.DTO.descriptorGroupDTOs }"
+							var="descriptorGroupDTO"
+							styleClass="datatable"
+			    			headerClass="datatableHeader"
+			    			rowClasses="datatableOddRow,datatableEvenRow"
+			    			rendered="#{ assetMB.classificationMB.DTO.descriptorGroupDTOs.size() > 0 }" >
+	
+			<h:column>
+				<h:panelGrid columns="2">
+					<h:outputText value="Name:" styleClass="boldFont" />
+					<h:inputText value="#{ descriptorGroupDTO.name }"
+										size="60" />
+				</h:panelGrid>
+				
+				<h:dataTable value="#{ descriptorGroupDTO.freeFormDescriptorDTOs }"
+									var="descriptorDTO"
+									styleClass="datatable"
+					    			headerClass="datatableHeader"
+					    			rowClasses="datatableOddRow,datatableEvenRow" >
+					 
+					<h:column>
+			  			<f:facet name="header">
+							<h:outputText value="Descriptor Name" />
+						</f:facet>
+						<h:inputText value="#{ descriptorDTO.name }"
+											size="30" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Value" />
+						</f:facet>
+						<h:inputText value="#{ descriptorDTO.freeFormValue }"
+											size="30" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Actions" />
+						</f:facet>
+						
+						<a4j:commandLink action="#{ assetMB.classificationMB.addDescriptor }"
+													reRender="descriptorsGroupsTable" >
+							<h:graphicImage value="/images/add.png"
+													title="add descriptor"
+													width="15px"
+													height="15px" />
+							<a4j:actionparam name="descriptorGroupRandomIDToAdd"
+													value="#{ descriptorGroupDTO.randomID }" />
+							<a4j:actionparam name="descriptorRandomIDToAdd"
+													value="#{ descriptorDTO.randomID }" />
+						</a4j:commandLink>
+						
+						<h:outputText value=" " />
+	
+						<a4j:commandLink action="#{ assetMB.classificationMB.removeDescriptor }"
+													reRender="descriptorsGroupsTable"
+													onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+							<h:graphicImage value="/images/remove.png"
+													title="remove descriptor"
+													width="15px"
+													height="15px" />
+							<a4j:actionparam name="descriptorGroupRandomIDToRemove"
+													value="#{ descriptorGroupDTO.randomID }" />
+							<a4j:actionparam name="descriptorRandomIDToRemove"
+													value="#{ descriptorDTO.randomID }" />
+						</a4j:commandLink>
+	
+					</h:column>
+					    			
+	  			</h:dataTable>
+	  			
+	  			<p/>
+				
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Actions" />
+				</f:facet>
+				
+				<a4j:commandLink action="#{ assetMB.classificationMB.addDescriptorGroup }"
+											reRender="descriptorsGroupsTable" >
+					<h:graphicImage value="/images/add.png"
+											title="add descriptor group" />
+					<a4j:actionparam name="descriptorGroupRandomIDToAdd"
+											value="#{ descriptorGroupDTO.randomID }" />
+				</a4j:commandLink>
+	
+				<a4j:commandLink action="#{ assetMB.classificationMB.removeDescriptorGroup }"
+											reRender="descriptorsGroupsTable"
+											onclick="if( ! confirm('Do you confirm the removal?') ) { return false; }" >
+					<h:graphicImage value="/images/remove.png"
+											title="remove descriptor group" />
+					<a4j:actionparam name="descriptorGroupRandomIDToRemove"
+											value="#{ descriptorGroupDTO.randomID }" />
+				</a4j:commandLink>
+			</h:column>
+	
+		</h:dataTable>
+	</h:panelGroup>
+	
+</html>

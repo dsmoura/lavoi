@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+	
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{ assetMB.wizardMB.usageLabel }" styleClass="pageSubtitle" />
+		<h:outputLabel value="Description of the rules for installing, customizing, and using the asset."
+									styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<p/>
+	
+	<h:outputLabel value="* Description:" styleClass="fieldFont" />
+	<h:panelGrid columns="2">
+		<h:inputTextarea id="usageDescriptionID"
+								value="#{ assetMB.usageMB.DTO.description }"
+								rows="5"
+								cols="80" >
+			<f:converter converterId="StringTrimConverter" />
+			<f:validateLength maximum="16384" />
+		</h:inputTextarea>
+		<h:message for="usageDescriptionID"  styleClass="errorTextClass" />
+	</h:panelGrid>
+	
+	<p/>
+
+	<ui:include src="./artifact.xhtml">
+		<ui:param name="artifactMB"
+						value="#{ assetMB.usageMB.artifactMB }" />
+	</ui:include>
+	
+</html>

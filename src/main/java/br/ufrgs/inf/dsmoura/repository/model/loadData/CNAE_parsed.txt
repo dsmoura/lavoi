@@ -1,0 +1,108 @@
+Administração Pública, Defesa E Seguridade Social
+ -Administração Pública, Defesa E Seguridade Social
+Agricultura, Pecuária, Produção Florestal, Pesca E Aqüicultura
+ -Agricultura, Pecuária E Serviços Relacionados	
+ -Produção Florestal	
+ -Pesca E Aqüicultura
+Alojamento E Alimentação
+ -Alojamento	
+ -Alimentação
+Artes, Cultura, Esporte E Recreação
+ -Atividades Artísticas, Criativas E De Espetáculos	
+ -Atividades Ligadas Ao Patrimônio Cultural E Ambiental	
+ -Atividades De Exploração De Jogos De Azar E Apostas	
+ -Atividades Esportivas E De Recreação E Lazer
+Atividades Administrativas E Serviços Complementares
+ -Aluguéis Não-imobiliários E Gestão De Ativos Intangíveis Não-financeiros	
+ -Seleção, Agenciamento E Locação De Mão-de-obra	
+ -Agências De Viagens, Operadores Turísticos E Serviços De Reservas	
+ -Atividades De Vigilância, Segurança E Investigação	
+ -Serviços Para Edifícios E Atividades Paisagísticas	
+ -Serviços De Escritório, De Apoio Administrativo E Outros Serviços Prestados Principalmente Às Empresas
+Atividades Financeiras, De Seguros E Serviços Relacionados
+ -Atividades De Serviços Financeiros	
+ -Seguros, Resseguros, Previdência Complementar E Planos De Saúde	
+ -Atividades Auxiliares Dos Serviços Financeiros, Seguros, Previdência Complementar E Planos De Saúde
+Atividades Imobiliárias
+ -Atividades Imobiliárias
+Atividades Profissionais, Científicas E Técnicas
+ -Atividades Jurídicas, De Contabilidade E De Auditoria	
+ -Atividades De Sedes De Empresas E De Consultoria Em Gestão Empresarial	
+ -Serviços De Arquitetura E Engenharia; Testes E Análises Técnicas	
+ -Pesquisa E Desenvolvimento Científico	
+ -Publicidade E Pesquisa De Mercado	
+ -Outras Atividades Profissionais, Científicas E Técnicas	
+ -Atividades Veterinárias
+Comércio; Reparação De Veículos Automotores E Motocicletas
+ -Comércio E Reparação De Veículos Automotores E Motocicletas	
+ -Comércio Por Atacado, Exceto Veículos Automotores E Motocicletas	
+ -Comércio Varejista
+Construção
+ -Construção De Edifícios	
+ -Obras De Infra-estrutura	
+ -Serviços Especializados Para Construção
+Educação
+ -Educação
+Eletricidade E Gás
+ -Eletricidade, Gás E Outras Utilidades
+Indústrias De Transformação
+ -Fabricação De Produtos Alimentícios	
+ -Fabricação De Bebidas	
+ -Fabricação De Produtos Do Fumo	
+ -Fabricação De Produtos Têxteis	
+ -Confecção De Artigos Do Vestuário E Acessórios	
+ -Preparação De Couros E Fabricação De Artefatos De Couro, Artigos Para Viagem E Calçados	
+ -Fabricação De Produtos De Madeira	
+ -Fabricação De Celulose, Papel E Produtos De Papel	
+ -Impressão E Reprodução De Gravações	
+ -Fabricação De Coque, De Produtos Derivados Do Petróleo E De Biocombustíveis	
+ -Fabricação De Produtos Químicos	
+ -Fabricação De Produtos Farmoquímicos E Farmacêuticos	
+ -Fabricação De Produtos De Borracha E De Material Plástico	
+ -Fabricação De Produtos De Minerais Não-metálicos	
+ -Metalurgia	
+ -Fabricação De Produtos De Metal, Exceto Máquinas E Equipamentos	
+ -Fabricação De Equipamentos De Informática, Produtos Eletrônicos E Ópticos	
+ -Fabricação De Máquinas, Aparelhos E Materiais Elétricos	
+ -Fabricação De Máquinas E Equipamentos	
+ -Fabricação De Veículos Automotores, Reboques E Carrocerias	
+ -Fabricação De Outros Equipamentos De Transporte, Exceto Veículos Automotores	
+ -Fabricação De Móveis	
+ -Fabricação De Produtos Diversos	
+ -Manutenção, Reparação E Instalação De Máquinas E Equipamentos
+Indústrias Extrativas
+ -Extração De Carvão Mineral	
+ -Extração De Petróleo E Gás Natural	
+ -Extração De Minerais Metálicos	
+ -Extração De Minerais Não-metálicos	
+ -Atividades De Apoio À Extração De Minerais
+Informação E Comunicação
+ -Edição E Edição Integrada À Impressão	
+ -Atividades Cinematográficas, Produção De Vídeos E De Programas De Televisão; Gravação De Som E Edição De Música	
+ -Atividades De Rádio E De Televisão	
+ -Telecomunicações	
+ -Atividades Dos Serviços De Tecnologia Da Informação	
+ -Atividades De Prestação De Serviços De Informação
+Organismos Internacionais E Outras Instituições Extraterritoriais
+ -Organismos Internacionais E Outras Instituições Extraterritoriais
+Outras Atividades De Serviços
+ -Atividades De Organizações Associativas	
+ -Reparação E Manutenção De Equipamentos De Informática E Comunicação E De Objetos Pessoais E Domésticos	
+ -Outras Atividades De Serviços Pessoais
+Saúde Humana E Serviços Sociais
+ -Atividades De Atenção À Saúde Humana	
+ -Atividades De Atenção À Saúde Humana Integradas Com Assistência Social, Prestadas Em Residências Coletivas E Particulares	
+ -Serviços De Assistência Social Sem Alojamento
+Serviços Domésticos
+ -Serviços Domésticos
+Transporte, Armazenagem E Correio
+ -Transporte Terrestre	
+ -Transporte Aquaviário	
+ -Transporte Aéreo	
+ -Armazenamento E Atividades Auxiliares Dos Transportes	
+ -Correio E Outras Atividades De Entrega
+Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação
+ -Captação, Tratamento E Distribuição De Água	
+ -Esgoto E Atividades Relacionadas	
+ -Coleta, Tratamento E Disposição De Resíduos; Recuperação De Materiais	
+ -Descontaminação E Outros Serviços De Gestão De Resíduos

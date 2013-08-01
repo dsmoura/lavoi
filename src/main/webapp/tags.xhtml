@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:a4j="http://richfaces.org/a4j"
+			xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+<ui:define name="title">Assets Tag Cloud</ui:define>
+
+<ui:define name="content">
+
+	<p/>
+	<h:panelGrid columns="1" >
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/images/tag.png" title="tags" />
+			<h:outputLabel value="Assets Tag Cloud"
+									styleClass="pageTitle" />
+		</h:panelGrid>
+		<h:outputLabel value="Tag cloud of the most used tags of assets in repository."
+													styleClass="helpFont" />
+	</h:panelGrid>
+	
+	<div align="right">
+		<h:panelGrid columns="2" rendered="false" >
+			<h:outputLabel value="Tag Cloud Type:" styleClass="fieldFont" />
+			<h:selectOneRadio value="#{ tagsMB.tagCloudType }"
+										styleClass="noSpacesSolidLineClassColor" >
+				<f:selectItems value="#{ tagsMB.tagCloudTypeList }" />
+				<a4j:support event="onclick"
+									action="#{ tagsMB.changeTagCloudType }"
+									reRender="tagCloudPanelID"
+									ajaxSingle="true" />
+			</h:selectOneRadio>
+		</h:panelGrid>
+	</div>
+	
+	<p/>
+	
+	<h:panelGroup id="tagCloudPanelID">
+	
+		<center>
+			<h:panelGroup styleClass="tagcloud">
+				<p align="center" style="max-width:1000px;" >
+					<a4j:repeat value="#{ tagsMB.tags }" var="tag" >
+						<h:commandLink value="#{ tag.name }"
+												action="#{ simpleSearchMB.searchByTag }"
+												style="font-size:#{ 100 + tag.totalProportion }%"
+												title="#{ tag.count } asset(s)" >
+							<f:param name="tagValueParam" value="#{ tag.name }" />
+							<f:param name="tagTypeToSearchParam" value="#{ tagsMB.tagCloudType }" />
+						</h:commandLink>
+						<h:outputLabel value=" " style="font-size:250%" />
+					</a4j:repeat>
+					<h:outputLabel value="There are no tags yet." rendered="#{ tagsMB.tags.size() == 0 }" />
+				</p>
+			</h:panelGroup>
+		</center>
+		
+		<p/>
+		
+		<h:panelGrid columns="3">
+			<h:commandLink value="Less Tags"
+									action="#{ tagsMB.lessTags }"
+									rendered="#{ tagsMB.canReduceTags }"
+									styleClass="boldLargeLink" />
+			<h:outputText value=" " />
+			<h:commandLink value="More Tags"
+									action="#{ tagsMB.moreTags }"
+									rendered="#{ tagsMB.canIncreaseTags }"
+									styleClass="boldLargeLink" />
+		</h:panelGrid>
+	
+	</h:panelGroup>
+	
+</ui:define>
+</ui:composition>
+
+</html>

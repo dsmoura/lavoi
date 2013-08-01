@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" >
+
+<ui:composition template="templates/MainTemplate.xhtml">
+
+<ui:define name="header" />
+
+<ui:define name="title">Login Registered</ui:define>
+
+<ui:define name="content">
+
+	<center>
+	
+		<p/>
+		<br/>
+		<h:panelGrid columns="1" columnClasses="centerColumn,centerColumn" >
+			<h:outputLabel value="Software Reuse Repository" styleClass="pageTitle" />
+			<h:outputLabel value="#{ listMB.repositorySubtitle }" styleClass="pageSubSubtitle" />
+		</h:panelGrid>
+		<p/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+		
+		<br/>
+		<br/>
+	
+		<p/>
+		<h:outputLabel value="Login Registered" styleClass="pageTitle" />
+		<p/>
+		<br/>
+		<br/>
+	
+		<h:panelGrid columns="1">
+			<h:outputText value="Your login was registered."
+								styleClass="boldMiddleFont" />
+			<h:outputText value="The confirmation code was sent for the e-mail #{ loginMB.userDTOForRegistration.email }"
+								styleClass="boldMiddleFont" />
+			<h:outputText value="Maybe you have to look in Spam Folder."
+								styleClass="boldMiddleFont" />
+		</h:panelGrid>
+							
+		<p/>
+		<br/>
+		<br/>
+		<h:commandLink action="login" immediate="true">
+			<h:outputText value="Back to Login Page" styleClass="largeFont" />
+		</h:commandLink>
+		
+		<p/>
+		<br/>
+		<br/>
+		<br/>
+		<hr width="800px"/>
+	
+	</center>
+	
+</ui:define>
+</ui:composition>
+</html>
